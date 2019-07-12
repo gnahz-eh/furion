@@ -27,25 +27,25 @@ package com.github.warden;
 
 import com.github.warden.enums.FormulaType;
 
-public abstract class Formula {
+public abstract class DyadicFormula extends Formula {
 
-    private final FormulaType formulaType;
-    private final boolean calculable;
+    private Formula lhs;
+    private Formula rhs;
 
-    public Formula(FormulaType formulaType, boolean calculable) {
-        this.formulaType = formulaType;
-        this.calculable = calculable;
+    public DyadicFormula(FormulaType formulaType, boolean calculable, Formula lhs, Formula rhs) {
+        super(formulaType, calculable);
+        this.lhs = lhs;
+        this.rhs = rhs;
     }
 
-    public abstract Formula calculate(Formula formula);
-
-    public abstract void verify() throws Exception;
-
-    public FormulaType getFormulaType() {
-        return formulaType;
-    }
-
-    public boolean isCalculable() {
-        return calculable;
+    public void verify() throws Exception {
+        if (lhs == null) {
+            throw new Exception("MISSING LEFT HAND SIDE...");
+        }
+        lhs.verify();
+        if (rhs == null) {
+            throw new Exception("MISSING RIGHT HAND SIDE...");
+        }
+        rhs.verify();
     }
 }

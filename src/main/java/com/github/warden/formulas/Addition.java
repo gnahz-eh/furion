@@ -22,30 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.warden;
+package com.github.warden.formulas;
 
-
-import com.github.warden.enums.FormulaType;
-
-public abstract class Formula {
-
-    private final FormulaType formulaType;
-    private final boolean calculable;
-
-    public Formula(FormulaType formulaType, boolean calculable) {
-        this.formulaType = formulaType;
-        this.calculable = calculable;
-    }
-
-    public abstract Formula calculate(Formula formula);
-
-    public abstract void verify() throws Exception;
-
-    public FormulaType getFormulaType() {
-        return formulaType;
-    }
-
-    public boolean isCalculable() {
-        return calculable;
-    }
+public class Addition {
 }
