@@ -22,7 +22,28 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formulas;
+package com.github.warden.formulas.arithmetic;
 
-public class Addition {
+import com.github.warden.enums.FormulaType;
+import com.github.warden.formulas.DyadicFormula;
+import com.github.warden.formulas.Formula;
+
+public abstract class ArithmeticFormula extends DyadicFormula {
+
+    public ArithmeticFormula(FormulaType formulaType, Formula lhs, Formula rhs) {
+        super(formulaType, lhs, rhs);
+    }
+
+//    public Formula calculate() {
+//        Formula l = calculate(lhs);
+//        Formula r = calculate(rhs);
+//
+//
+//        return calculate(l, r);
+//
+//    }
+//
+//    public abstract Formula calculate() {
+//
+//    }
 }

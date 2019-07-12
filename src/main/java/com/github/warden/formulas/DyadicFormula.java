@@ -22,29 +22,29 @@
  * SOFTWARE.
  */
 
-package com.github.warden;
-
+package com.github.warden.formulas;
 
 import com.github.warden.enums.FormulaType;
+import com.github.warden.exceptions.FormulaException;
 
 public abstract class DyadicFormula extends Formula {
 
-    private Formula lhs;
-    private Formula rhs;
+    protected Formula lhs;
+    protected Formula rhs;
 
-    public DyadicFormula(FormulaType formulaType, boolean calculable, Formula lhs, Formula rhs) {
-        super(formulaType, calculable);
+    public DyadicFormula(FormulaType formulaType, Formula lhs, Formula rhs) {
+        super(formulaType, true);
         this.lhs = lhs;
         this.rhs = rhs;
     }
 
-    public void verify() throws Exception {
+    public void verify() throws FormulaException {
         if (lhs == null) {
-            throw new Exception("MISSING LEFT HAND SIDE...");
+            throw new FormulaException("MISSING LEFT HAND SIDE...");
         }
         lhs.verify();
         if (rhs == null) {
-            throw new Exception("MISSING RIGHT HAND SIDE...");
+            throw new FormulaException("MISSING RIGHT HAND SIDE...");
         }
         rhs.verify();
     }
