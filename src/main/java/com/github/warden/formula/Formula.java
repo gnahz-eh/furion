@@ -22,28 +22,31 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formulas.arithmetic;
+package com.github.warden.formula;
+
 
 import com.github.warden.enums.FormulaType;
-import com.github.warden.formulas.DyadicFormula;
-import com.github.warden.formulas.Formula;
+import com.github.warden.exception.FormulaException;
 
-public abstract class ArithmeticFormula extends DyadicFormula {
+public abstract class Formula {
 
-    public ArithmeticFormula(FormulaType formulaType, Formula lhs, Formula rhs) {
-        super(formulaType, lhs, rhs);
+    private final FormulaType formulaType;
+    private final boolean calculable;
+
+    public Formula(FormulaType formulaType, boolean calculable) {
+        this.formulaType = formulaType;
+        this.calculable = calculable;
     }
 
-//    public Formula calculate() {
-//        Formula l = calculate(lhs);
-//        Formula r = calculate(rhs);
-//
-//
-//        return calculate(l, r);
-//
-//    }
-//
-//    public abstract Formula calculate() {
-//
-//    }
+    public abstract Formula calculate(Formula formula);
+
+    public abstract void verify() throws FormulaException;
+
+    public FormulaType getFormulaType() {
+        return formulaType;
+    }
+
+    public boolean isCalculable() {
+        return calculable;
+    }
 }

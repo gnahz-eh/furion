@@ -22,31 +22,13 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formulas;
+package com.github.warden.exception;
 
-
-import com.github.warden.enums.FormulaType;
-import com.github.warden.exceptions.FormulaException;
-
-public abstract class Formula {
-
-    private final FormulaType formulaType;
-    private final boolean calculable;
-
-    public Formula(FormulaType formulaType, boolean calculable) {
-        this.formulaType = formulaType;
-        this.calculable = calculable;
+public class FormulaException extends Exception {
+    public FormulaException() { super(); }
+    public FormulaException(String exceptionMessage, Throwable cause) {
+        super(exceptionMessage, cause);
     }
-
-    public abstract Formula calculate(Formula formula);
-
-    public abstract void verify() throws FormulaException;
-
-    public FormulaType getFormulaType() {
-        return formulaType;
-    }
-
-    public boolean isCalculable() {
-        return calculable;
-    }
+    public FormulaException(String exceptionMessage) { super(exceptionMessage); }
+    public FormulaException(Throwable cause) { super(cause); }
 }

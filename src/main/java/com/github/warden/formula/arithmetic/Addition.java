@@ -22,13 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.warden.exceptions;
+package com.github.warden.formula.arithmetic;
 
-public class FormulaException extends Exception {
-    public FormulaException() { super(); }
-    public FormulaException(String exceptionMessage, Throwable cause) {
-        super(exceptionMessage, cause);
-    }
-    public FormulaException(String exceptionMessage) { super(exceptionMessage); }
-    public FormulaException(Throwable cause) { super(cause); }
+public class Addition {
 }

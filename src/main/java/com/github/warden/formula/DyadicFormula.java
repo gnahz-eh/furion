@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formulas;
+package com.github.warden.formula;
 
 import com.github.warden.enums.FormulaType;
-import com.github.warden.exceptions.FormulaException;
+import com.github.warden.exception.FormulaException;
 
 public abstract class DyadicFormula extends Formula {
 
