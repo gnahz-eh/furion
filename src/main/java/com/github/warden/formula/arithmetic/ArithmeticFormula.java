@@ -25,8 +25,10 @@
 package com.github.warden.formula.arithmetic;
 
 import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
+import com.github.warden.formula.number.NumberFormula;
 
 public abstract class ArithmeticFormula extends DyadicFormula {
 
@@ -34,16 +36,27 @@ public abstract class ArithmeticFormula extends DyadicFormula {
         super(formulaType, lhs, rhs);
     }
 
-//    public Formula calculate() {
-//        Formula l = calculate(lhs);
-//        Formula r = calculate(rhs);
-//
-//
-//        return calculate(l, r);
-//
-//    }
-//
-//    public abstract Formula calculate() {
-//
-//    }
+    public Formula calculate() throws FormulaException {
+        Formula left = lhs.calculate();
+        if (left == null) {
+            throw new FormulaException("LHS IS NULL!");
+        }
+        Formula right = rhs.calculate();
+        if (right == null) {
+            throw new FormulaException("RHS IS NULL!");
+        }
+        double l = simplify(left);
+        double r = simplify(right);
+        return calculate(l, r);
+    }
+
+    public double simplify(Formula formula) {
+        if (formula.getFormulaType() == FormulaType.NUMBER_DOUBLE ||
+            formula.getFormulaType() == FormulaType.NUMBER_Integer) {
+            return ((NumberFormula) formula).getValue();
+        }
+        return 0.0;
+    }
+
+    public abstract Formula calculate(double lhs, double rhs) throws FormulaException;
 }

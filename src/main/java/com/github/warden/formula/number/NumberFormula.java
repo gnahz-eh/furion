@@ -22,15 +22,16 @@
  * SOFTWARE.
  */
 
-package com.github.warden.enums;
+package com.github.warden.formula.number;
 
+import com.github.warden.enums.FormulaType;
+import com.github.warden.formula.Formula;
 
-public enum FormulaType {
+public abstract class NumberFormula extends Formula {
 
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    NUMBER_Integer,
-    NUMBER_DOUBLE
+    public NumberFormula(FormulaType formulaType) {
+        super(formulaType, false);
+    }
+
+    public abstract double getValue();
 }

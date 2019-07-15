@@ -38,7 +38,7 @@ public abstract class Formula {
         this.calculable = calculable;
     }
 
-    public abstract Formula calculate(Formula formula);
+    public abstract Formula calculate() throws FormulaException;
 
     public abstract void verify() throws FormulaException;
 
