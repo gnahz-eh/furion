@@ -51,8 +51,10 @@ public abstract class ArithmeticFormula extends DyadicFormula {
     }
 
     public double simplify(Formula formula) {
+        if (formula == null)
+            return 0.0;
         if (formula.getFormulaType() == FormulaType.NUMBER_DOUBLE ||
-            formula.getFormulaType() == FormulaType.NUMBER_Integer) {
+            formula.getFormulaType() == FormulaType.NUMBER_INTEGER) {
             return ((NumberFormula) formula).getValue();
         }
         return 0.0;

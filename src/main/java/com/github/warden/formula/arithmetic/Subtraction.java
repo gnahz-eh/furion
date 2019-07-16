@@ -29,15 +29,10 @@ import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.number.DoubleFormula;
 
-public class Addition extends ArithmeticFormula {
+public class Subtraction extends ArithmeticFormula {
 
-    public Addition(Formula lhs, Formula rhs) {
-        super(FormulaType.ADDITION, lhs, rhs);
-    }
-
-    @Override
-    public Formula calculate(double lhs, double rhs) throws FormulaException {
-        return new DoubleFormula(lhs + rhs);
+    public Subtraction(Formula lhs, Formula rhs) {
+        super(FormulaType.SUBTRACTION, lhs, rhs);
     }
 
     @Override
@@ -49,5 +44,10 @@ public class Addition extends ArithmeticFormula {
             throw new FormulaException("MISSING RIGHT HAND SIDE...");
         }
         rhs.verify();
+    }
+
+    @Override
+    public Formula calculate(double lhs, double rhs) throws FormulaException {
+        return new DoubleFormula(lhs - rhs);
     }
 }

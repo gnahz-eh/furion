@@ -31,6 +31,6 @@ public enum FormulaType {
     SUBTRACTION,
     MULTIPLICATION,
     DIVISION,
-    NUMBER_Integer,
+    NUMBER_INTEGER,
     NUMBER_DOUBLE
 }

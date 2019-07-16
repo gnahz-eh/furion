@@ -29,25 +29,17 @@ import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.number.DoubleFormula;
 
-public class Addition extends ArithmeticFormula {
+public class Division extends ArithmeticFormula {
 
-    public Addition(Formula lhs, Formula rhs) {
-        super(FormulaType.ADDITION, lhs, rhs);
+    public Division(Formula lhs, Formula rhs) {
+        super(FormulaType.DIVISION, lhs, rhs);
     }
 
     @Override
     public Formula calculate(double lhs, double rhs) throws FormulaException {
-        return new DoubleFormula(lhs + rhs);
-    }
-
-    @Override
-    public void verify() throws FormulaException {
-        if (lhs != null) {
-            lhs.verify();
+        if (rhs == 0.0) {
+            throw new FormulaException("DIVISOR CAN NOT BE ZERO!");
         }
-        if (rhs == null) {
-            throw new FormulaException("MISSING RIGHT HAND SIDE...");
-        }
-        rhs.verify();
+        return new DoubleFormula(lhs / rhs);
     }
 }

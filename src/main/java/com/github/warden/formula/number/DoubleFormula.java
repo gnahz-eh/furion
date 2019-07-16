@@ -22,32 +22,31 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formula.arithmetic;
+package com.github.warden.formula.number;
 
 import com.github.warden.enums.FormulaType;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
-import com.github.warden.formula.number.DoubleFormula;
 
-public class Addition extends ArithmeticFormula {
+public class DoubleFormula extends NumberFormula {
 
-    public Addition(Formula lhs, Formula rhs) {
-        super(FormulaType.ADDITION, lhs, rhs);
+    private final double value;
+
+    public DoubleFormula(double value) {
+        super(FormulaType.NUMBER_DOUBLE);
+        this.value = value;
     }
 
     @Override
-    public Formula calculate(double lhs, double rhs) throws FormulaException {
-        return new DoubleFormula(lhs + rhs);
+    public double getValue() {
+        return value;
     }
 
     @Override
-    public void verify() throws FormulaException {
-        if (lhs != null) {
-            lhs.verify();
-        }
-        if (rhs == null) {
-            throw new FormulaException("MISSING RIGHT HAND SIDE...");
-        }
-        rhs.verify();
+    public Formula calculate() throws FormulaException {
+        return this;
     }
+
+    @Override
+    public void verify() throws FormulaException { }
 }
