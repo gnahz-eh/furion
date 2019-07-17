@@ -22,16 +22,21 @@
  * SOFTWARE.
  */
 
-package com.github.warden.enums;
+package com.github.warden.formula.arithmetic;
 
+import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.Formula;
+import com.github.warden.formula.number.DoubleFormula;
 
-public enum FormulaType {
+public class PowerFormula extends ArithmeticFormula {
 
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    NUMBER_INTEGER,
-    NUMBER_DOUBLE,
-    POWER
+    public PowerFormula(Formula lhs, Formula rhs) {
+        super(FormulaType.POWER, lhs, rhs);
+    }
+
+    @Override
+    public Formula calculate(double lhs, double rhs) throws FormulaException {
+        return new DoubleFormula(Math.pow(lhs, rhs));
+    }
 }
