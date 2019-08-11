@@ -48,4 +48,20 @@ public abstract class DyadicFormula extends Formula {
         }
         rhs.verify();
     }
+
+    public Formula getLhs() {
+        return lhs;
+    }
+
+    public void setLhs(Formula lhs) {
+        this.lhs = lhs;
+    }
+
+    public Formula getRhs() {
+        return rhs;
+    }
+
+    public void setRhs(Formula rhs) {
+        this.rhs = rhs;
+    }
 }

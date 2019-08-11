@@ -30,5 +30,7 @@ public enum TokenType {
     PLUS,
     MINUS,
     MULTIPLY,
-    DIVIDE
+    DIVIDE,
+    OPEN_BRACKET,
+    CLOSE_BRACKET
 }

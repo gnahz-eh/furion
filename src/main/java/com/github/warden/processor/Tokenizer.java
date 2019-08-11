@@ -24,7 +24,6 @@
 
 package com.github.warden.processor;
 
-import com.github.warden.enums.TokenType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,23 +55,62 @@ public class Tokenizer {
         switch (lastCharacter) {
             case '+':
                 lastCharacter = 0;
-                return new Token(TokenType.PLUS, "+");
+                return Token.PLUS;
             case '-':
                 lastCharacter = 0;
-                return new Token(TokenType.MINUS, "-");
+                return Token.MINUS;
             case '*':
                 lastCharacter = 0;
-                return new Token(TokenType.MULTIPLY, "*");
+                return Token.MULTIPLY;
             case '/':
                 lastCharacter = 0;
-                return new Token(TokenType.DIVIDE, "/");
-            default:
-                return null;
+                return Token.DIVIDE;
+            case '(':
+                lastCharacter = 0;
+                return Token.OPEN_BRACKET;
+            case ')':
+                lastCharacter = 0;
+                return Token.CLOSE_BRACKET;
         }
+        if (!Character.isJavaIdentifierStart(lastCharacter)) {
+            throw new IOException("INVALID TOKEN: " + lastCharacter);
+        }
+        return null;
     }
 
 
     private Token tokenizeNumber() throws IOException {
-        return null;
+        boolean isDecimal = false;
+        StringBuilder sb = new StringBuilder();
+        sb.append((char) lastCharacter);
+        lastCharacter = tokenReader.read();
+        while (Character.isDigit(lastCharacter) || lastCharacter == '.') {
+            isDecimal = (lastCharacter == '.');
+            sb.append((char) lastCharacter);
+            lastCharacter = tokenReader.read();
+        }
+
+        if (lastCharacter == 'e' || lastCharacter == 'E') {
+            sb.append((char) lastCharacter);
+            lastCharacter = tokenReader.read();
+            if (lastCharacter == '+' || lastCharacter == '-') {
+                sb.append((char) lastCharacter);
+                lastCharacter = tokenReader.read();
+            }
+            while (Character.isDigit(lastCharacter)) {
+                sb.append((char) lastCharacter);
+                lastCharacter = tokenReader.read();
+            }
+        }
+        String value = sb.toString();
+        if (isDecimal) {
+            return new NumericalToken(value, Double.parseDouble(value));
+        } else {
+            try {
+                return new NumericalToken(value, Integer.parseInt(value));
+            } catch (NumberFormatException e) {
+                return new NumericalToken(value, Double.parseDouble(value));
+            }
+        }
     }
 }

@@ -35,4 +35,28 @@ public class Token {
         this.tokenType = tokenType;
         this.value = value;
     }
+
+    public TokenType getTokenType() {
+        return tokenType;
+    }
+
+    public void setTokenType(TokenType tokenType) {
+        this.tokenType = tokenType;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public static final Token PLUS = new Token(TokenType.PLUS, "+");
+    public static final Token MINUS = new Token(TokenType.MINUS, "-");
+    public static final Token MULTIPLY = new Token(TokenType.MULTIPLY, "*");
+    public static final Token DIVIDE = new Token(TokenType.DIVIDE, "/");
+    public static final Token OPEN_BRACKET = new Token(TokenType.OPEN_BRACKET, "(");
+    public static final Token CLOSE_BRACKET = new Token(TokenType.CLOSE_BRACKET, ")");
+
 }
