@@ -26,7 +26,7 @@ package com.github.warden.processor;
 
 import com.github.warden.enums.TokenType;
 
-public class NumericalToken extends Token{
+public class NumericalToken extends Token {
     private double doubleValue;
     private int integerValue;
 

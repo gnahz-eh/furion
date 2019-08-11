@@ -27,12 +27,12 @@ package com.github.warden.processor;
 import java.io.IOException;
 import java.io.Reader;
 
-public class Tokenlizer extends Reader {
+public class TokenReader extends Reader {
 
     private int peek = -1;
     private Reader reader;
 
-    public Tokenlizer(Reader reader) {
+    public TokenReader(Reader reader) {
         this.reader = reader;
     }
 
@@ -51,5 +51,20 @@ public class Tokenlizer extends Reader {
             return peek;
         else
             return peek = read();
+    }
+
+    public char skipBlank() throws IOException {
+        if (peek != -1 && !Character.isWhitespace(peek)) {
+            char c = (char) peek;
+            peek = -1;
+            return c;
+        } else {
+            while (true) {
+                char c = (char) reader.read();
+                if (!Character.isWhitespace(c)) {
+                    return c;
+                }
+            }
+        }
     }
 }
