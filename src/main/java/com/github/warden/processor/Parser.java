@@ -26,6 +26,7 @@ package com.github.warden.processor;
 
 
 import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.arithmetic.Addition;
 import com.github.warden.formula.arithmetic.Division;
@@ -76,7 +77,9 @@ public class Parser {
                 break;
             case DIVIDE:
                 parseMultiplyDivide(new Division(null, null));
-
+                break;
+            default:
+                throw new FormulaException("UNEXPECTED OPERATOR TYPE: " + token.getTokenType());
         }
     }
 
@@ -87,6 +90,25 @@ public class Parser {
     private void parseMultiplyDivide(Formula formula) throws FormulaException {
         if (current == null) {
             throw new FormulaException("UNEXPECTED NULL TOKEN");
+        }
+        Formula curr = current;
+        Formula previous = null;
+        while (curr != null) {
+            if (curr instanceof Addition || curr instanceof  Subtraction) {
+                previous = curr;
+                curr = ((DyadicFormula) current).getRhs();
+            } else {
+                if (previous == null) {
+                    ((DyadicFormula) formula).setLhs(current);
+                    current = formula;
+                    return;
+                } else {
+                    Formula previousRHS = ((DyadicFormula) previous).getRhs();
+                    ((DyadicFormula) formula).setLhs(previousRHS);
+                    ((DyadicFormula) previousRHS).setRhs(formula);
+                    return;
+                }
+            }
         }
     }
 }
