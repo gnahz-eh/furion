@@ -32,7 +32,7 @@ public class IntegerFormula extends NumberFormula {
 
     private final int value;
 
-    public IntegerFormula(FormulaType formulaType, int value) {
+    public IntegerFormula(int value) {
         super(FormulaType.NUMBER_INTEGER);
         this.value = value;
     }

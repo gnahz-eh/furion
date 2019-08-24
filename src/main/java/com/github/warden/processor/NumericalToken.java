@@ -30,15 +30,31 @@ public class NumericalToken extends Token {
     private double doubleValue;
     private int integerValue;
 
-    public NumericalToken(String value, double doubleValue) {
-        super(TokenType.DOUBLE, value);
+    public NumericalToken(double doubleValue) {
+        super(TokenType.DOUBLE, String.valueOf(doubleValue));
         this.doubleValue = doubleValue;
         this.integerValue = 0;
     }
 
-    public NumericalToken(String value, int integerValue) {
-        super(TokenType.INTEGER, value);
+    public NumericalToken(int integerValue) {
+        super(TokenType.INTEGER, String.valueOf(integerValue));
         this.integerValue = integerValue;
         this.doubleValue = 0.0;
+    }
+
+    public double getDoubleValue() {
+        return doubleValue;
+    }
+
+    public void setDoubleValue(double doubleValue) {
+        this.doubleValue = doubleValue;
+    }
+
+    public int getIntegerValue() {
+        return integerValue;
+    }
+
+    public void setIntegerValue(int integerValue) {
+        this.integerValue = integerValue;
     }
 }

@@ -24,5 +24,24 @@
 
 package com.github.warden;
 
-public class Test {
+import com.github.warden.formula.Formula;
+import com.github.warden.formula.arithmetic.ArithmeticFormula;
+import com.github.warden.formula.number.DoubleFormula;
+import com.github.warden.processor.Parser;
+import org.junit.Test;
+
+public class NormalTest {
+
+    @Test
+    public void normalTest() {
+        String line = "123*23+2+5-45";
+
+        try {
+            Formula formula = Parser.parse(line);
+            formula = formula.calculate();
+            System.out.println(((DoubleFormula)formula).getValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

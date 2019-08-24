@@ -32,11 +32,19 @@ import com.github.warden.formula.arithmetic.Addition;
 import com.github.warden.formula.arithmetic.Division;
 import com.github.warden.formula.arithmetic.Multiplication;
 import com.github.warden.formula.arithmetic.Subtraction;
+import com.github.warden.formula.number.DoubleFormula;
+import com.github.warden.formula.number.IntegerFormula;
 
 import java.io.IOException;
 
 public class Parser {
     private Formula current;
+
+    public static Formula parse(String s) throws FormulaException, IOException {
+        Parser parser = new Parser();
+        parser.parse(new Tokenizer(s));
+        return parser.getCurrent();
+    }
 
     public void parse(Tokenizer tokenizer) throws FormulaException, IOException {
         Token token = null;
@@ -84,7 +92,16 @@ public class Parser {
     }
 
     private void parseValue(Token token) throws FormulaException {
-
+        Formula realValue = null;
+        switch (token.getTokenType()) {
+            case INTEGER:
+                realValue = new IntegerFormula(((NumericalToken) token).getIntegerValue());
+                break;
+            case DOUBLE:
+                realValue = new DoubleFormula(((NumericalToken) token).getDoubleValue());
+                break;
+        }
+        processValue(realValue);
     }
 
     private void parseMultiplyDivide(Formula formula) throws FormulaException {
@@ -105,10 +122,36 @@ public class Parser {
                 } else {
                     Formula previousRHS = ((DyadicFormula) previous).getRhs();
                     ((DyadicFormula) formula).setLhs(previousRHS);
-                    ((DyadicFormula) previousRHS).setRhs(formula);
+                    ((DyadicFormula) previous).setRhs(formula);
                     return;
                 }
             }
         }
+    }
+
+    private void processValue(Formula realValue) throws FormulaException {
+        if (current == null) {
+            current = realValue;
+            return;
+        } else {
+            Formula curr = current;
+            do {
+                if (!(curr instanceof DyadicFormula)) {
+                    throw new FormulaException("UNEXPECTED FORMULA FOUND (NOT DYADIC_FORMULA)");
+                }
+                Formula currentRHS = ((DyadicFormula) curr).getRhs();
+                if (currentRHS == null) {
+                    ((DyadicFormula) curr).setRhs(realValue);
+                    return;
+                } else {
+                    curr = currentRHS;
+                }
+            } while (curr != null);
+        }
+        throw new FormulaException("UNEXPECTED TOKEN FOUND");
+    }
+
+    public Formula getCurrent() {
+        return current;
     }
 }

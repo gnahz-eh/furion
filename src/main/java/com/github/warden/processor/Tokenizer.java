@@ -28,6 +28,7 @@ package com.github.warden.processor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 
 public class Tokenizer {
     private TokenReader tokenReader;
@@ -39,6 +40,10 @@ public class Tokenizer {
 
     public Tokenizer(Reader reader) {
         this(new BufferedReader(reader));
+    }
+
+    public Tokenizer(String s) {
+        this(new StringReader(s));
     }
 
     public Token tokenizeNext() throws IOException {
@@ -71,6 +76,9 @@ public class Tokenizer {
             case ')':
                 lastCharacter = 0;
                 return Token.CLOSE_BRACKET;
+            case -1:
+            case 0xffff:
+                return null;
         }
         if (!Character.isJavaIdentifierStart(lastCharacter)) {
             throw new IOException("INVALID TOKEN: " + lastCharacter);
@@ -104,12 +112,12 @@ public class Tokenizer {
         }
         String value = sb.toString();
         if (isDecimal) {
-            return new NumericalToken(value, Double.parseDouble(value));
+            return new NumericalToken(Double.parseDouble(value));
         } else {
             try {
-                return new NumericalToken(value, Integer.parseInt(value));
+                return new NumericalToken(Integer.parseInt(value));
             } catch (NumberFormatException e) {
-                return new NumericalToken(value, Double.parseDouble(value));
+                return new NumericalToken(Double.parseDouble(value));
             }
         }
     }
