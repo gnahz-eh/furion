@@ -1,4 +1,4 @@
-
+![Furion](src/main/resources/logo.png)
 <h1 align="left">Furion 🖲️</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
@@ -13,7 +13,6 @@
   </a>
 </p>
 
-![Furion](src/main/resources/logo.png)
 ### 🏠 [Homepage](https://github.com/gnahZ-eH/Furion)
 
 ## Install
