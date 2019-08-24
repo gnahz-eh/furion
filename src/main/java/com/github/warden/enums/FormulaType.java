@@ -33,5 +33,6 @@ public enum FormulaType {
     DIVISION,
     NUMBER_INTEGER,
     NUMBER_DOUBLE,
-    POWER
+    POWER,
+    BRACKET_FORMULA
 }

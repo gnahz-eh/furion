@@ -25,7 +25,9 @@
 package com.github.warden.processor;
 
 
+import com.github.warden.enums.TokenType;
 import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.BracketFormula;
 import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.arithmetic.Addition;
@@ -49,11 +51,11 @@ public class Parser {
     public void parse(Tokenizer tokenizer) throws FormulaException, IOException {
         Token token = null;
         while ((token = tokenizer.tokenizeNext()) != null) {
-            parseToken(token);
+            parseToken(token, tokenizer);
         }
     }
 
-    private void parseToken(Token token) throws FormulaException, IOException {
+    private void parseToken(Token token, Tokenizer tokenizer) throws FormulaException, IOException {
         switch (token.getTokenType()) {
             case PLUS:
             case MINUS:
@@ -64,6 +66,9 @@ public class Parser {
             case DOUBLE:
             case INTEGER:
                 parseValue(token);
+                break;
+            case OPEN_BRACKET:
+                parseBracket(tokenizer);
                 break;
             default:
                 throw new FormulaException("UNEXPECTED " + token.getTokenType() + " FOUND");
@@ -111,9 +116,9 @@ public class Parser {
         Formula curr = current;
         Formula previous = null;
         while (curr != null) {
-            if (curr instanceof Addition || curr instanceof  Subtraction) {
+            if (curr instanceof Addition || curr instanceof Subtraction) {
                 previous = curr;
-                curr = ((DyadicFormula) current).getRhs();
+                curr = ((DyadicFormula) curr).getRhs();
             } else {
                 if (previous == null) {
                     ((DyadicFormula) formula).setLhs(current);
@@ -125,6 +130,22 @@ public class Parser {
                     ((DyadicFormula) previous).setRhs(formula);
                     return;
                 }
+            }
+        }
+    }
+
+    private void parseBracket(Tokenizer tokenizer) throws FormulaException, IOException {
+        Formula temporaryStorage = current;
+        current = null;
+        Token token = null;
+        while ((token = tokenizer.tokenizeNext()) != null) {
+            if (token.getTokenType().equals(TokenType.CLOSE_BRACKET)) {
+                Formula bracketFormula = current;
+                current = temporaryStorage;
+                processValue(new BracketFormula(bracketFormula));
+                break;
+            } else {
+                parseToken(token, tokenizer);
             }
         }
     }

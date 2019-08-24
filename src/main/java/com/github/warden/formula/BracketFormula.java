@@ -22,26 +22,29 @@
  * SOFTWARE.
  */
 
-package com.github.warden;
+package com.github.warden.formula;
 
-import com.github.warden.formula.Formula;
-import com.github.warden.formula.arithmetic.ArithmeticFormula;
-import com.github.warden.formula.number.DoubleFormula;
-import com.github.warden.processor.Parser;
-import org.junit.Test;
+import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.FormulaException;
 
-public class NormalTest {
+public class BracketFormula extends Formula {
 
-    @Test
-    public void normalTest() { // 1+(1+2)*2
-        String line = "1+(2+(4+(2))*3)";//2-(123+23)*2+5-1-45
+    private Formula subFormula;
 
-        try {
-            Formula formula = Parser.parse(line);
-            formula = formula.calculate();
-            System.out.println(((DoubleFormula)formula).getValue());
-        } catch (Exception e) {
-            e.printStackTrace();
+    public BracketFormula(Formula formula) {
+        super(FormulaType.BRACKET_FORMULA, formula.isCalculable());
+        this.subFormula = formula;
+    }
+
+    @Override
+    public Formula calculate() throws FormulaException {
+        return subFormula.calculate();
+    }
+
+    @Override
+    public void verify() throws FormulaException {
+        if (subFormula instanceof DyadicFormula) {
+            subFormula.verify();
         }
     }
 }
