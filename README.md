@@ -1,5 +1,5 @@
+
 <h1 align="left">Furion 🖲️</h1>
-![Furion](src/main/resources/logo.png)
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/gnahZ-eH/Furion/blob/master/README.md">
@@ -11,11 +11,9 @@
   <a href="https://github.com/gnahZ-eH/Furion/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
-  <a href="https://www.zhihu.com/people/Jerry_Zhang">
-    <img alt="zhihu: https://www.zhihu.com/people/Jerry_Zhang" src="https://img.shields.io/twitter/follow/https://www.zhihu.com/people/Jerry_Zhang.svg?style=social" target="_blank" />
-  </a>
 </p>
 
+![Furion](src/main/resources/logo.png)
 ### 🏠 [Homepage](https://github.com/gnahZ-eH/Furion)
 
 ## Install
@@ -34,7 +32,7 @@ npm run test
 
 👤 **He Zhang(Joe)**
 
-* Twitter: [@https://www.zhihu.com/people/Jerry_Zhang](https://twitter.com/https://www.zhihu.com/people/Jerry_Zhang)
+* zhihu: [@https://www.zhihu.com/people/Jerry_Zhang](https://twitter.com/https://www.zhihu.com/people/Jerry_Zhang)
 * Github: [@gnahZ-eH](https://github.com/gnahZ-eH)
 
 ## 🤝 Contributing
