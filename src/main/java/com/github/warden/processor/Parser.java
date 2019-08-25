@@ -30,10 +30,7 @@ import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.BracketFormula;
 import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
-import com.github.warden.formula.arithmetic.Addition;
-import com.github.warden.formula.arithmetic.Division;
-import com.github.warden.formula.arithmetic.Multiplication;
-import com.github.warden.formula.arithmetic.Subtraction;
+import com.github.warden.formula.arithmetic.*;
 import com.github.warden.formula.number.DoubleFormula;
 import com.github.warden.formula.number.IntegerFormula;
 
@@ -61,6 +58,7 @@ public class Parser {
             case MINUS:
             case MULTIPLY:
             case DIVIDE:
+            case POWER:
                 parseOperator(token);
                 break;
             case DOUBLE:
@@ -71,7 +69,7 @@ public class Parser {
                 parseBracket(tokenizer);
                 break;
             default:
-                throw new FormulaException("UNEXPECTED " + token.getTokenType() + " FOUND");
+                throw new FormulaException("UNEXPECTED TOKEN TYPE (" + token.getTokenType() + ") FOUND");
         }
     }
 
@@ -90,6 +88,9 @@ public class Parser {
                 break;
             case DIVIDE:
                 parseMultiplyDivide(new Division(null, null));
+                break;
+            case POWER:
+                parseMultiplyDivide(new Power(null, null));
                 break;
             default:
                 throw new FormulaException("UNEXPECTED OPERATOR TYPE: " + token.getTokenType());

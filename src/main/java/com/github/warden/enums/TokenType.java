@@ -31,6 +31,7 @@ public enum TokenType {
     MINUS,
     MULTIPLY,
     DIVIDE,
+    POWER,
     OPEN_BRACKET,
     CLOSE_BRACKET
 }

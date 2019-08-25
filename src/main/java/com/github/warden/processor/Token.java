@@ -58,5 +58,6 @@ public class Token {
     public static final Token DIVIDE = new Token(TokenType.DIVIDE, "/");
     public static final Token OPEN_BRACKET = new Token(TokenType.OPEN_BRACKET, "(");
     public static final Token CLOSE_BRACKET = new Token(TokenType.CLOSE_BRACKET, ")");
+    public static final Token POWER = new Token(TokenType.POWER, "^");
 
 }

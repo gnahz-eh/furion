@@ -29,9 +29,9 @@ import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.number.DoubleFormula;
 
-public class PowerFormula extends ArithmeticFormula {
+public class Power extends ArithmeticFormula {
 
-    public PowerFormula(Formula lhs, Formula rhs) {
+    public Power(Formula lhs, Formula rhs) {
         super(FormulaType.POWER, lhs, rhs);
     }
 

@@ -76,6 +76,9 @@ public class Tokenizer {
             case ')':
                 lastCharacter = 0;
                 return Token.CLOSE_BRACKET;
+            case '^':
+                lastCharacter = 0;
+                return Token.POWER;
             case -1:
             case 0xffff:
                 return null;
