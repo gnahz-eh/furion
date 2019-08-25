@@ -34,5 +34,7 @@ public enum FormulaType {
     NUMBER_INTEGER,
     NUMBER_DOUBLE,
     POWER,
-    BRACKET_FORMULA
+    BRACKET_FORMULA,
+    BOOLEAN,
+    EQUAL
 }

@@ -22,17 +22,46 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formula.number;
+package com.github.warden.formula.logical;
 
 import com.github.warden.enums.FormulaType;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
+import com.github.warden.formula.number.NumberFormula;
 
-public abstract class NumberFormula extends Formula {
+public class BooleanFormula extends NumberFormula {
 
-    public NumberFormula(FormulaType formulaType) {
-        super(formulaType, false);
+    public static final BooleanFormula TRUE = new BooleanFormula(true);
+    public static final BooleanFormula FALSE = new BooleanFormula(false);
+
+
+    private final boolean boolValue;
+
+    public BooleanFormula(boolean boolValue) {
+        super(FormulaType.BOOLEAN);
+        this.boolValue = boolValue;
     }
 
-    public abstract double getValue();
+    @Override
+    public double getValue() {
+        return boolValue ? 1 : 0;
+    }
+
+    @Override
+    public Formula calculate() throws FormulaException {
+        return this;
+    }
+
+    @Override
+    public void verify() throws FormulaException {
+
+    }
+
+    public boolean boolValue() {
+        return boolValue;
+    }
+
+    public static BooleanFormula getInstance(boolean boolValue) {
+        return boolValue ? TRUE : FALSE;
+    }
 }

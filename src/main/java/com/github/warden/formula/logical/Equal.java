@@ -22,17 +22,20 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formula.number;
+package com.github.warden.formula.logical;
 
 import com.github.warden.enums.FormulaType;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 
-public abstract class NumberFormula extends Formula {
+public class Equal extends ComparisonFormula {
 
-    public NumberFormula(FormulaType formulaType) {
-        super(formulaType, false);
+    public Equal(Formula lhs, Formula rhs) {
+        super(FormulaType.EQUAL, lhs, rhs);
     }
 
-    public abstract double getValue();
+    @Override
+    public Formula calculate() throws FormulaException {
+        return BooleanFormula.getInstance(compare() == 0);
+    }
 }

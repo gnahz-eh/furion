@@ -22,17 +22,33 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formula.number;
+package com.github.warden.formula.logical;
 
 import com.github.warden.enums.FormulaType;
 import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
+import com.github.warden.formula.number.NumberFormula;
 
-public abstract class NumberFormula extends Formula {
+public abstract class ComparisonFormula extends DyadicFormula {
 
-    public NumberFormula(FormulaType formulaType) {
-        super(formulaType, false);
+    public ComparisonFormula(FormulaType formulaType, Formula lhs, Formula rhs) {
+        super(formulaType, lhs, rhs);
     }
 
-    public abstract double getValue();
+    protected double compare() throws FormulaException {
+        Formula left = lhs.calculate();
+        if (left == null) {
+            throw new FormulaException("LHS IS NULL!");
+        }
+        Formula right = rhs.calculate();
+        if (right == null) {
+            throw new FormulaException("RHS IS NULL!");
+        }
+
+        if (left instanceof NumberFormula && right instanceof NumberFormula) {
+            return ((NumberFormula) left).getValue() - ((NumberFormula) right).getValue();
+        }
+        return 0;
+    }
 }
