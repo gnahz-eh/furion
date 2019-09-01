@@ -79,6 +79,10 @@ public class Tokenizer {
             case '^':
                 lastCharacter = 0;
                 return Token.POWER;
+            case '<':
+            case '>':
+            case '=':
+                return tokenizeComparisonOperator();
             case -1:
             case 0xffff:
                 return null;
@@ -123,5 +127,32 @@ public class Tokenizer {
                 return new NumericalToken(Double.parseDouble(value));
             }
         }
+    }
+
+    private Token tokenizeComparisonOperator() throws IOException {
+        int current = lastCharacter;
+        int next = tokenReader.peek();
+        lastCharacter = 0;
+        if (current == '<') {
+            if (next == '=') {
+                tokenReader.read();
+                return Token.LESS_THAN_OR_EQUAL_TO;
+            } else if (next == '>') {
+                tokenReader.read();
+                return Token.NOT_EQUAL;
+            } else {
+                return Token.LESS_THAN;
+            }
+        } else if (current == '>') {
+            if (next == '=') {
+                tokenReader.read();
+                return Token.GREATER_THAN_OR_EQUAL_TO;
+            } else {
+                return Token.GREATER_THAN;
+            }
+        } else if (current == '=') {
+            return Token.EQUAL;
+        }
+        return null;
     }
 }

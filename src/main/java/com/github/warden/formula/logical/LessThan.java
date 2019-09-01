@@ -36,6 +36,6 @@ public class LessThan extends ComparisonFormula {
 
     @Override
     public Formula calculate() throws FormulaException {
-        return BooleanFormula.getInstance(compare() > 0);
+        return BooleanFormula.getInstance(compare() < 0);
     }
 }

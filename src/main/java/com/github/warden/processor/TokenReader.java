@@ -43,6 +43,18 @@ public class TokenReader extends Reader {
 
     @Override
     public int read(char[] cbuf, int off, int len) throws IOException {
+        if (peek != -1) {
+            int read = 1;
+            cbuf[off] = (char) peek;
+            if (len > 1) {
+                read = reader.read(cbuf, off + 1, len - 1);
+            }
+            if (read != -1) {
+                read += 1;
+            }
+            peek = -1;
+            return read;
+        }
         return reader.read(cbuf, off, len);
     }
 

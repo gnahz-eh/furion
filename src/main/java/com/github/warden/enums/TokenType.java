@@ -33,5 +33,11 @@ public enum TokenType {
     DIVIDE,
     POWER,
     OPEN_BRACKET,
-    CLOSE_BRACKET
+    CLOSE_BRACKET,
+    EQUAL,
+    GREATER_THAN,
+    LESS_THAN,
+    NOT_EQUAL,
+    GREATER_THAN_OR_EQUAL_TO,
+    LESS_THAN_OR_EQUAL_TO
 }

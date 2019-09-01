@@ -59,5 +59,10 @@ public class Token {
     public static final Token OPEN_BRACKET = new Token(TokenType.OPEN_BRACKET, "(");
     public static final Token CLOSE_BRACKET = new Token(TokenType.CLOSE_BRACKET, ")");
     public static final Token POWER = new Token(TokenType.POWER, "^");
-
+    public static final Token EQUAL = new Token(TokenType.EQUAL, "=");
+    public static final Token NOT_EQUAL = new Token(TokenType.NOT_EQUAL, "<>");
+    public static final Token GREATER_THAN = new Token(TokenType.GREATER_THAN, ">");
+    public static final Token LESS_THAN = new Token(TokenType.LESS_THAN, "<");
+    public static final Token GREATER_THAN_OR_EQUAL_TO = new Token(TokenType.GREATER_THAN_OR_EQUAL_TO, ">=");
+    public static final Token LESS_THAN_OR_EQUAL_TO = new Token(TokenType.LESS_THAN_OR_EQUAL_TO, "<=");
 }
