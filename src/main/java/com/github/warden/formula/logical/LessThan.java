@@ -22,24 +22,20 @@
  * SOFTWARE.
  */
 
-package com.github.warden.enums;
+package com.github.warden.formula.logical;
 
+import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.Formula;
 
-public enum FormulaType {
+public class LessThan extends ComparisonFormula {
 
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    NUMBER_INTEGER,
-    NUMBER_DOUBLE,
-    POWER,
-    BRACKET_FORMULA,
-    BOOLEAN,
-    EQUAL,
-    GREATER_THAN,
-    LESS_THAN,
-    NOT_EQUAL,
-    GREATER_THAN_OR_EQUAL_TO,
-    LESS_THAN_OR_EQUAL_TO
+    public LessThan(Formula lhs, Formula rhs) {
+        super(FormulaType.LESS_THAN, lhs, rhs);
+    }
+
+    @Override
+    public Formula calculate() throws FormulaException {
+        return BooleanFormula.getInstance(compare() > 0);
+    }
 }
