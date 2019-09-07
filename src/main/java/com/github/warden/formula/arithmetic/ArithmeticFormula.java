@@ -25,6 +25,7 @@
 package com.github.warden.formula.arithmetic;
 
 import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
@@ -39,11 +40,11 @@ public abstract class ArithmeticFormula extends DyadicFormula {
     public Formula calculate() throws FormulaException {
         Formula left = lhs.calculate();
         if (left == null) {
-            throw new FormulaException("LHS IS NULL!");
+            throw new FormulaException(ExceptionUtils.MISSING_LEFT_HAND_SIDE);
         }
         Formula right = rhs.calculate();
         if (right == null) {
-            throw new FormulaException("RHS IS NULL!");
+            throw new FormulaException(ExceptionUtils.MISSING_RIGHT_HAND_SIDE);
         }
         double l = simplify(left);
         double r = simplify(right);

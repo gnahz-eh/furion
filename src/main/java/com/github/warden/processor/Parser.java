@@ -26,6 +26,7 @@ package com.github.warden.processor;
 
 
 import com.github.warden.enums.TokenType;
+import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.BracketFormula;
 import com.github.warden.formula.DyadicFormula;
@@ -78,7 +79,7 @@ public class Parser {
                 parseBracket(tokenizer);
                 break;
             default:
-                throw new FormulaException("UNEXPECTED TOKEN TYPE (" + token.getTokenType() + ") FOUND");
+                throw new FormulaException(ExceptionUtils.UNEXPECTED_TOKEN_TYPE_FOUND);
         }
     }
 
@@ -120,7 +121,7 @@ public class Parser {
                 current = new LessThanOrEqualTo(current, null);
                 break;
             default:
-                throw new FormulaException("UNEXPECTED OPERATOR TYPE: " + token.getTokenType());
+                throw new FormulaException(ExceptionUtils.UNEXPECTED_OPERATOR_TYPE_FOUND);
         }
     }
 
@@ -142,7 +143,7 @@ public class Parser {
 
     private void parseMultiplyDivide(Formula formula) throws FormulaException {
         if (current == null) {
-            throw new FormulaException("UNEXPECTED NULL TOKEN");
+            throw new FormulaException(ExceptionUtils.MISSING_DIVIDEND_OR_MULTIPLICAND);
         }
         Formula curr = current;
         Formula previous = null;
@@ -189,7 +190,7 @@ public class Parser {
             Formula curr = current;
             do {
                 if (!(curr instanceof DyadicFormula)) {
-                    throw new FormulaException("UNEXPECTED FORMULA FOUND (NOT DYADIC_FORMULA)");
+                    throw new FormulaException(ExceptionUtils.UNEXPECTED_FORMULA_FOUND);
                 }
                 Formula currentRHS = ((DyadicFormula) curr).getRhs();
                 if (currentRHS == null) {
@@ -200,7 +201,7 @@ public class Parser {
                 }
             } while (curr != null);
         }
-        throw new FormulaException("UNEXPECTED TOKEN FOUND");
+        throw new FormulaException(ExceptionUtils.UNEXPECTED_TOKEN_FOUND);
     }
 
     public Formula getCurrent() {

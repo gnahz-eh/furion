@@ -31,4 +31,8 @@ public class FormulaException extends Exception {
     }
     public FormulaException(String exceptionMessage) { super(exceptionMessage); }
     public FormulaException(Throwable cause) { super(cause); }
+
+    public FormulaException(int exceptionCode) {
+        super(ExceptionUtils.exceptionMap.get(exceptionCode));
+    }
 }

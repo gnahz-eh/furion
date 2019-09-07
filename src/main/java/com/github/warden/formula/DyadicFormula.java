@@ -25,6 +25,7 @@
 package com.github.warden.formula;
 
 import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 
 public abstract class DyadicFormula extends Formula {
@@ -40,11 +41,11 @@ public abstract class DyadicFormula extends Formula {
 
     public void verify() throws FormulaException {
         if (lhs == null) {
-            throw new FormulaException("MISSING LEFT HAND SIDE...");
+            throw new FormulaException(ExceptionUtils.MISSING_LEFT_HAND_SIDE);
         }
         lhs.verify();
         if (rhs == null) {
-            throw new FormulaException("MISSING RIGHT HAND SIDE...");
+            throw new FormulaException(ExceptionUtils.MISSING_RIGHT_HAND_SIDE);
         }
         rhs.verify();
     }

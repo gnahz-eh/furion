@@ -25,6 +25,7 @@
 package com.github.warden.formula.arithmetic;
 
 import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.number.DoubleFormula;
@@ -38,7 +39,7 @@ public class Division extends ArithmeticFormula {
     @Override
     public Formula calculate(double lhs, double rhs) throws FormulaException {
         if (rhs == 0.0) {
-            throw new FormulaException("DIVISOR CAN NOT BE ZERO!");
+            throw new FormulaException(ExceptionUtils.DIVISOR_IS_ZERO);
         }
         return new DoubleFormula(lhs / rhs);
     }

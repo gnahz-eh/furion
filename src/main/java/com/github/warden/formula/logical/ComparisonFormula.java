@@ -25,6 +25,7 @@
 package com.github.warden.formula.logical;
 
 import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
@@ -39,11 +40,11 @@ public abstract class ComparisonFormula extends DyadicFormula {
     protected double compare() throws FormulaException {
         Formula left = lhs.calculate();
         if (left == null) {
-            throw new FormulaException("LHS IS NULL!");
+            throw new FormulaException(ExceptionUtils.MISSING_LEFT_HAND_SIDE);
         }
         Formula right = rhs.calculate();
         if (right == null) {
-            throw new FormulaException("RHS IS NULL!");
+            throw new FormulaException(ExceptionUtils.MISSING_RIGHT_HAND_SIDE);
         }
 
         if (left instanceof NumberFormula && right instanceof NumberFormula) {
