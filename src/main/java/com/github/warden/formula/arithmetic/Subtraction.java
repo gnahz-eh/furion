@@ -33,6 +33,9 @@ public class Subtraction extends ArithmeticFormula {
 
     public Subtraction(Formula lhs, Formula rhs) {
         super(FormulaType.SUBTRACTION, lhs, rhs);
+        if (lhs == null) {
+            this.lhs = new DoubleFormula(0.0);
+        }
     }
 
     @Override

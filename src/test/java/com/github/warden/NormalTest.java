@@ -33,7 +33,7 @@ public class NormalTest {
 
     @Test
     public void normalTest() { // 1+(1+2)*2 // 1+(2+(4+2^2)*3)
-        String line = "5<>3";//2-(123+23)*2+5-1-45
+        String line = "-1.3E1/3";//2-(123+23)*2+5-1-45
 
         try {
             Formula formula = Parser.parse(line);
