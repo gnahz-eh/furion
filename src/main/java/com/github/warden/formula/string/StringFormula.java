@@ -22,25 +22,31 @@
  * SOFTWARE.
  */
 
-package com.github.warden.enums;
+package com.github.warden.formula.string;
 
+import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.Formula;
 
-public enum FormulaType {
+public class StringFormula extends Formula {
 
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    NUMBER_INTEGER,
-    NUMBER_DOUBLE,
-    POWER,
-    BRACKET_FORMULA,
-    BOOLEAN,
-    EQUAL,
-    GREATER_THAN,
-    LESS_THAN,
-    NOT_EQUAL,
-    GREATER_THAN_OR_EQUAL_TO,
-    LESS_THAN_OR_EQUAL_TO,
-    STRING
+    private final String string;
+
+    public StringFormula(String string) {
+        super(FormulaType.STRING, false);
+        this.string = string;
+    }
+
+    @Override
+    public Formula calculate() throws FormulaException {
+        return this;
+    }
+
+    @Override
+    public void verify() throws FormulaException {
+    }
+
+    public String getString() {
+        return string;
+    }
 }

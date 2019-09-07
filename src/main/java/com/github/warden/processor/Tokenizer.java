@@ -25,6 +25,8 @@
 package com.github.warden.processor;
 
 
+import com.github.warden.enums.TokenType;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -83,6 +85,8 @@ public class Tokenizer {
             case '>':
             case '=':
                 return tokenizeComparisonOperator();
+            case '\"':
+                return tokenizeString();
             case -1:
             case 0xffff:
                 return null;
@@ -154,5 +158,33 @@ public class Tokenizer {
             return Token.EQUAL;
         }
         return null;
+    }
+
+    private Token tokenizeString() throws IOException {
+        String string = unescapeString(tokenReader);
+        lastCharacter = 0;
+        return new Token(TokenType.STRING, string);
+    }
+
+    private String unescapeString(TokenReader tokenReader) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        char c = 0;
+        while (c != '\"') {
+            c = (char) tokenReader.read();
+            switch (c) {
+                case '\"':
+                    int peek = tokenReader.peek();
+                    if (peek == '\"') {
+                        tokenReader.read();
+                        sb.append('\"');
+                        c = 0;
+                    }
+                    break;
+                default:
+                    sb.append(c);
+                    break;
+            }
+        }
+        return sb.toString();
     }
 }

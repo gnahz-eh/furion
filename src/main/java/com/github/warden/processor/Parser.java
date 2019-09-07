@@ -34,6 +34,7 @@ import com.github.warden.formula.arithmetic.*;
 import com.github.warden.formula.logical.*;
 import com.github.warden.formula.number.DoubleFormula;
 import com.github.warden.formula.number.IntegerFormula;
+import com.github.warden.formula.string.StringFormula;
 
 import java.io.IOException;
 
@@ -70,6 +71,7 @@ public class Parser {
                 break;
             case DOUBLE:
             case INTEGER:
+            case STRING:
                 parseValue(token);
                 break;
             case OPEN_BRACKET:
@@ -130,6 +132,9 @@ public class Parser {
                 break;
             case DOUBLE:
                 realValue = new DoubleFormula(((NumericalToken) token).getDoubleValue());
+                break;
+            case STRING:
+                realValue = new StringFormula(token.getValue());
                 break;
         }
         processValue(realValue);

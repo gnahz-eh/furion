@@ -39,5 +39,6 @@ public enum TokenType {
     LESS_THAN,
     NOT_EQUAL,
     GREATER_THAN_OR_EQUAL_TO,
-    LESS_THAN_OR_EQUAL_TO
+    LESS_THAN_OR_EQUAL_TO,
+    STRING
 }
