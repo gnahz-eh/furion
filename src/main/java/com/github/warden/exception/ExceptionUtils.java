@@ -40,21 +40,23 @@ public class ExceptionUtils {
     public static final int INVALID_TOKEN = 9;
     public static final int IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL = 10;
     public static final int NAME_OF_FUNCTION_FORMULA_IS_NULL = 11;
+    public static final int MISS_ARG_BEFORE_COMMA = 12;
 
 
     public static final Map<Integer, String> exceptionMap = new HashMap<Integer, String>();
 
     static {
-        exceptionMap.put(MISSING_LEFT_HAND_SIDE, "Missing left hand side.");
-        exceptionMap.put(MISSING_RIGHT_HAND_SIDE, "Miss right hand side.");
-        exceptionMap.put(DIVISOR_IS_ZERO, "Divisor is zero.");
-        exceptionMap.put(UNEXPECTED_TOKEN_TYPE_FOUND, "Unexpected token type found.");
-        exceptionMap.put(UNEXPECTED_OPERATOR_TYPE_FOUND, "Unexpected operator type found.");
-        exceptionMap.put(MISSING_DIVIDEND_OR_MULTIPLICAND, "Missing dividend or multiplicand.");
-        exceptionMap.put(UNEXPECTED_FORMULA_FOUND, "Unexpected formula found.");
-        exceptionMap.put(UNEXPECTED_TOKEN_FOUND, "Unexpected formula found.");
-        exceptionMap.put(INVALID_TOKEN, "Invalid token.");
-        exceptionMap.put(IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL, "Implementation of FunctionFormula is null.");
+        exceptionMap.put(MISSING_LEFT_HAND_SIDE, "Missing left hand side");
+        exceptionMap.put(MISSING_RIGHT_HAND_SIDE, "Miss right hand side");
+        exceptionMap.put(DIVISOR_IS_ZERO, "Divisor is zero");
+        exceptionMap.put(UNEXPECTED_TOKEN_TYPE_FOUND, "Unexpected token type found");
+        exceptionMap.put(UNEXPECTED_OPERATOR_TYPE_FOUND, "Unexpected operator type found");
+        exceptionMap.put(MISSING_DIVIDEND_OR_MULTIPLICAND, "Missing dividend or multiplicand");
+        exceptionMap.put(UNEXPECTED_FORMULA_FOUND, "Unexpected formula found");
+        exceptionMap.put(UNEXPECTED_TOKEN_FOUND, "Unexpected formula found");
+        exceptionMap.put(INVALID_TOKEN, "Invalid token");
+        exceptionMap.put(IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL, "Implementation of FunctionFormula is null");
         exceptionMap.put(NAME_OF_FUNCTION_FORMULA_IS_NULL, "Name of function formula is null");
+        exceptionMap.put(MISS_ARG_BEFORE_COMMA, "Missing arg before comma");
     }
 }

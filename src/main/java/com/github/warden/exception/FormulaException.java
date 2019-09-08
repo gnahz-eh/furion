@@ -35,4 +35,8 @@ public class FormulaException extends Exception {
     public FormulaException(int exceptionCode) {
         super(ExceptionUtils.exceptionMap.get(exceptionCode));
     }
+
+    public FormulaException(int exceptionCode, String supplement) {
+        super(ExceptionUtils.exceptionMap.get(exceptionCode) + ": " + supplement);
+    }
 }

@@ -22,26 +22,40 @@
  * SOFTWARE.
  */
 
-package com.github.warden.enums;
+package com.github.warden.formula.function;
 
+import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.ExceptionUtils;
+import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.Formula;
 
-public enum FormulaType {
+public class FunctionFormula extends Formula {
 
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    NUMBER_INTEGER,
-    NUMBER_DOUBLE,
-    POWER,
-    BRACKET_FORMULA,
-    BOOLEAN,
-    EQUAL,
-    GREATER_THAN,
-    LESS_THAN,
-    NOT_EQUAL,
-    GREATER_THAN_OR_EQUAL_TO,
-    LESS_THAN_OR_EQUAL_TO,
-    STRING,
-    FUNCTION
+    private String functionName;
+    private Formula[] args;
+    private Function implementation;
+
+    public FunctionFormula(String functionName, Formula[] args) {
+        super(FormulaType.FUNCTION, true);
+        this.functionName = functionName;
+        this.args = args;
+    }
+
+    @Override
+    public Formula calculate() throws FormulaException {
+        if (implementation == null) {
+            throw new FormulaException(ExceptionUtils.IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL);
+        }
+        return implementation.calculate(args);
+    }
+
+    @Override
+    public void verify() throws FormulaException {
+        if (functionName == null) {
+            throw new FormulaException(ExceptionUtils.NAME_OF_FUNCTION_FORMULA_IS_NULL);
+        }
+        for (Formula formula : args) {
+            formula.verify();
+        }
+    }
 }

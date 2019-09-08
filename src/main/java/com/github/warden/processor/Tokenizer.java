@@ -87,14 +87,17 @@ public class Tokenizer {
                 return tokenizeComparisonOperator();
             case '\"':
                 return tokenizeString();
+            case ',':
+                lastCharacter = 0;
+                return Token.COMMA;
             case -1:
             case 0xffff:
                 return null;
         }
         if (!Character.isJavaIdentifierStart(lastCharacter)) {
-            throw new IOException("INVALID TOKEN: " + lastCharacter);
+            throw new IOException("INVALID TOKEN: " + (char) lastCharacter);
         }
-        return null;
+        return tokenizeFunction();
     }
 
 
@@ -186,5 +189,24 @@ public class Tokenizer {
             }
         }
         return sb.toString();
+    }
+
+    private Token tokenizeFunction() throws IOException {
+        StringBuilder sb = new StringBuilder();
+
+        while (Character.isJavaIdentifierPart(lastCharacter)) {
+            sb.append((char) lastCharacter);
+            lastCharacter = tokenReader.read();
+        }
+
+        if (Character.isWhitespace(lastCharacter)) {
+            lastCharacter = tokenReader.skipBlank();
+        }
+
+        if (lastCharacter == '(') {
+            lastCharacter = 0;
+            return new Token(TokenType.FUNCTION, sb.toString());
+        }
+        return null;
     }
 }

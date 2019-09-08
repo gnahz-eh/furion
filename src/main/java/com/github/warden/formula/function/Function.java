@@ -22,26 +22,11 @@
  * SOFTWARE.
  */
 
-package com.github.warden.enums;
+package com.github.warden.formula.function;
 
+import com.github.warden.exception.FormulaException;
+import com.github.warden.formula.Formula;
 
-public enum FormulaType {
-
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    NUMBER_INTEGER,
-    NUMBER_DOUBLE,
-    POWER,
-    BRACKET_FORMULA,
-    BOOLEAN,
-    EQUAL,
-    GREATER_THAN,
-    LESS_THAN,
-    NOT_EQUAL,
-    GREATER_THAN_OR_EQUAL_TO,
-    LESS_THAN_OR_EQUAL_TO,
-    STRING,
-    FUNCTION
+public interface Function {
+    Formula calculate(Formula[] args) throws FormulaException;
 }

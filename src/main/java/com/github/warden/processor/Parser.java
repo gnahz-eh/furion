@@ -32,12 +32,15 @@ import com.github.warden.formula.BracketFormula;
 import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.arithmetic.*;
+import com.github.warden.formula.function.FunctionFormula;
 import com.github.warden.formula.logical.*;
 import com.github.warden.formula.number.DoubleFormula;
 import com.github.warden.formula.number.IntegerFormula;
 import com.github.warden.formula.string.StringFormula;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Parser {
     private Formula current;
@@ -78,8 +81,11 @@ public class Parser {
             case OPEN_BRACKET:
                 parseBracket(tokenizer);
                 break;
+            case FUNCTION:
+                parseFunction(token, tokenizer);
+                break;
             default:
-                throw new FormulaException(ExceptionUtils.UNEXPECTED_TOKEN_TYPE_FOUND);
+                throw new FormulaException(ExceptionUtils.UNEXPECTED_TOKEN_TYPE_FOUND, token.getValue());
         }
     }
 
@@ -202,6 +208,34 @@ public class Parser {
             } while (curr != null);
         }
         throw new FormulaException(ExceptionUtils.UNEXPECTED_TOKEN_FOUND);
+    }
+
+    private void parseFunction(Token token, Tokenizer tokenizer) throws FormulaException, IOException {
+        Formula temporaryStorage = current;
+        current = null;
+        Token next = null;
+        List<Formula> args = new ArrayList<>();
+        while ((next = tokenizer.tokenizeNext()) != null) {
+            if (next.getTokenType().equals(TokenType.COMMA)) {
+                if (current == null) {
+                    throw new FormulaException(ExceptionUtils.MISS_ARG_BEFORE_COMMA);
+                } else {
+                    args.add(current);
+                }
+                current = null;
+            } else if (next.getTokenType().equals(TokenType.CLOSE_BRACKET)) {
+                if (current != null) {
+                    args.add(current);
+                }
+                current = temporaryStorage;
+                break;
+            } else {
+                parseToken(next, tokenizer);
+            }
+        }
+        FunctionFormula functionFormula =
+                new FunctionFormula(token.getValue(), (Formula[]) args.toArray(new Formula[0]));
+        processValue(functionFormula);
     }
 
     public Formula getCurrent() {

@@ -65,4 +65,5 @@ public class Token {
     public static final Token LESS_THAN = new Token(TokenType.LESS_THAN, "<");
     public static final Token GREATER_THAN_OR_EQUAL_TO = new Token(TokenType.GREATER_THAN_OR_EQUAL_TO, ">=");
     public static final Token LESS_THAN_OR_EQUAL_TO = new Token(TokenType.LESS_THAN_OR_EQUAL_TO, "<=");
+    public static final Token COMMA = new Token(TokenType.COMMA, ",");
 }

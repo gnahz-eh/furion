@@ -22,26 +22,23 @@
  * SOFTWARE.
  */
 
-package com.github.warden.enums;
+package com.github.warden.formula;
 
+import com.github.warden.enums.FormulaType;
+import com.github.warden.processor.Parser;
+import org.junit.Assert;
+import org.junit.Test;
 
-public enum FormulaType {
+public class FunctionFormulaTest {
 
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    NUMBER_INTEGER,
-    NUMBER_DOUBLE,
-    POWER,
-    BRACKET_FORMULA,
-    BOOLEAN,
-    EQUAL,
-    GREATER_THAN,
-    LESS_THAN,
-    NOT_EQUAL,
-    GREATER_THAN_OR_EQUAL_TO,
-    LESS_THAN_OR_EQUAL_TO,
-    STRING,
-    FUNCTION
+    @Test
+    public void functionFormulaTest() {
+        String line = "test(1, 2)";
+        try {
+            Formula formula = Parser.parse(line);
+            Assert.assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

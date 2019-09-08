@@ -40,5 +40,7 @@ public enum TokenType {
     NOT_EQUAL,
     GREATER_THAN_OR_EQUAL_TO,
     LESS_THAN_OR_EQUAL_TO,
-    STRING
+    STRING,
+    FUNCTION,
+    COMMA
 }
