@@ -41,6 +41,9 @@ public class ExceptionUtils {
     public static final int IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL = 10;
     public static final int NAME_OF_FUNCTION_FORMULA_IS_NULL = 11;
     public static final int MISS_ARG_BEFORE_COMMA = 12;
+    public static final int NO_ARGS_IN_FUNCTION = 13;
+    public static final int ASSERT_ARG_COUNT = 14;
+    public static final int INVALID_ARG_TYPE_FOR_FUNCTION = 15;
 
 
     public static final Map<Integer, String> exceptionMap = new HashMap<Integer, String>();
@@ -58,5 +61,8 @@ public class ExceptionUtils {
         exceptionMap.put(IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL, "Implementation of FunctionFormula is null");
         exceptionMap.put(NAME_OF_FUNCTION_FORMULA_IS_NULL, "Name of function formula is null");
         exceptionMap.put(MISS_ARG_BEFORE_COMMA, "Missing arg before comma");
+        exceptionMap.put(NO_ARGS_IN_FUNCTION, "No args in function");
+        exceptionMap.put(ASSERT_ARG_COUNT, "Number of args in function is not equal to count");
+        exceptionMap.put(INVALID_ARG_TYPE_FOR_FUNCTION, "Invalid argument type for function");
     }
 }

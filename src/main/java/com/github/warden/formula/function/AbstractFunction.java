@@ -24,46 +24,30 @@
 
 package com.github.warden.formula.function;
 
-import com.github.warden.enums.FormulaType;
 import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
+import com.github.warden.formula.number.NumberFormula;
 
-public class FunctionFormula extends Formula {
+public abstract class AbstractFunction implements Function {
 
-    private String functionName;
-    private Formula[] args;
-    private Function implementation;
-
-    public FunctionFormula(String functionName, Formula[] args) {
-        super(FormulaType.FUNCTION, true);
-        this.functionName = functionName;
-        this.args = args;
-    }
-
-    @Override
-    public Formula calculate() throws FormulaException {
-        if (implementation == null) {
-            throw new FormulaException(ExceptionUtils.IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL);
+    protected void assertArgCount(Formula[] args, int count) throws FormulaException {
+        if (args == null && count != 0) {
+            throw new FormulaException(ExceptionUtils.NO_ARGS_IN_FUNCTION, getClass().getSimpleName());
         }
-        return implementation.calculate(args);
-    }
 
-    @Override
-    public void verify() throws FormulaException {
-        if (functionName == null) {
-            throw new FormulaException(ExceptionUtils.NAME_OF_FUNCTION_FORMULA_IS_NULL);
-        }
-        for (Formula formula : args) {
-            formula.verify();
+        if (args.length != count) {
+            throw new FormulaException(ExceptionUtils.ASSERT_ARG_COUNT, getClass().getSimpleName());
         }
     }
 
-    public Function getImplementation() {
-        return implementation;
-    }
-
-    public void setImplementation(Function implementation) {
-        this.implementation = implementation;
+    protected double toDouble(Formula arg) throws FormulaException {
+        if (arg.isCalculable()) {
+            arg = arg.calculate();
+        }
+        if (arg instanceof NumberFormula) {
+            return ((NumberFormula) arg).getValue();
+        }
+        throw new FormulaException(ExceptionUtils.INVALID_ARG_TYPE_FOR_FUNCTION, getClass().getSimpleName());
     }
 }

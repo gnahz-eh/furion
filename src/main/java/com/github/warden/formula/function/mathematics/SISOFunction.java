@@ -22,48 +22,20 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formula.function;
+package com.github.warden.formula.function.mathematics;
 
-import com.github.warden.enums.FormulaType;
-import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
+import com.github.warden.formula.function.AbstractFunction;
+import com.github.warden.formula.number.DoubleFormula;
 
-public class FunctionFormula extends Formula {
+public abstract class SISOFunction extends AbstractFunction {
 
-    private String functionName;
-    private Formula[] args;
-    private Function implementation;
-
-    public FunctionFormula(String functionName, Formula[] args) {
-        super(FormulaType.FUNCTION, true);
-        this.functionName = functionName;
-        this.args = args;
+    public Formula calculate(Formula[] args) throws FormulaException {
+        assertArgCount(args, 1);
+        return new DoubleFormula(calculate(toDouble(args[0])));
     }
 
-    @Override
-    public Formula calculate() throws FormulaException {
-        if (implementation == null) {
-            throw new FormulaException(ExceptionUtils.IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL);
-        }
-        return implementation.calculate(args);
-    }
+    public abstract double calculate(double arg) throws FormulaException;
 
-    @Override
-    public void verify() throws FormulaException {
-        if (functionName == null) {
-            throw new FormulaException(ExceptionUtils.NAME_OF_FUNCTION_FORMULA_IS_NULL);
-        }
-        for (Formula formula : args) {
-            formula.verify();
-        }
-    }
-
-    public Function getImplementation() {
-        return implementation;
-    }
-
-    public void setImplementation(Function implementation) {
-        this.implementation = implementation;
-    }
 }

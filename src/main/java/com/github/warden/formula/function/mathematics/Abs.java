@@ -22,11 +22,14 @@
  * SOFTWARE.
  */
 
-package com.github.warden.formula.function;
+package com.github.warden.formula.function.mathematics;
 
 import com.github.warden.exception.FormulaException;
-import com.github.warden.formula.Formula;
 
-public interface Function {
-    public Formula calculate(Formula[] args) throws FormulaException;
+public class Abs extends SISOFunction {
+
+    @Override
+    public double calculate(double arg) throws FormulaException {
+        return Math.abs(arg);
+    }
 }

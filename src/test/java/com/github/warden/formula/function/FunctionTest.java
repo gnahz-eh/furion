@@ -25,45 +25,28 @@
 package com.github.warden.formula.function;
 
 import com.github.warden.enums.FormulaType;
-import com.github.warden.exception.ExceptionUtils;
-import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
+import com.github.warden.formula.function.mathematics.Abs;
+import com.github.warden.formula.number.NumberFormula;
+import com.github.warden.processor.Parser;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class FunctionFormula extends Formula {
+public class FunctionTest {
 
-    private String functionName;
-    private Formula[] args;
-    private Function implementation;
-
-    public FunctionFormula(String functionName, Formula[] args) {
-        super(FormulaType.FUNCTION, true);
-        this.functionName = functionName;
-        this.args = args;
-    }
-
-    @Override
-    public Formula calculate() throws FormulaException {
-        if (implementation == null) {
-            throw new FormulaException(ExceptionUtils.IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL);
+    @Test
+    public void absTest() {
+        double arg = -12;
+        String line = "test(" + arg + ")";
+        try {
+            Formula formula = Parser.parse(line);
+            Assert.assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+            ((FunctionFormula) formula).setImplementation(new Abs());
+            formula = formula.calculate();
+            Assert.assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+            Assert.assertEquals(((NumberFormula) formula).getValue(), Math.abs(arg), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return implementation.calculate(args);
-    }
-
-    @Override
-    public void verify() throws FormulaException {
-        if (functionName == null) {
-            throw new FormulaException(ExceptionUtils.NAME_OF_FUNCTION_FORMULA_IS_NULL);
-        }
-        for (Formula formula : args) {
-            formula.verify();
-        }
-    }
-
-    public Function getImplementation() {
-        return implementation;
-    }
-
-    public void setImplementation(Function implementation) {
-        this.implementation = implementation;
     }
 }
