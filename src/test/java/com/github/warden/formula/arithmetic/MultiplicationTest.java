@@ -28,7 +28,7 @@ import com.github.warden.enums.FormulaType;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.number.DoubleFormula;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -36,10 +36,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MultiplicationTest {
 
-    private static Multiplication multiplication;
+    private Multiplication multiplication;
 
-    @BeforeAll
-    static void initAll() {
+    @BeforeEach
+    void init() {
         multiplication = new Multiplication(null, null);
     }
 
@@ -49,6 +49,18 @@ class MultiplicationTest {
         double a = 2;
         double b = 3;
         Formula result = multiplication.calculate(a, b);
+        assertEquals(result.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((DoubleFormula) result).getValue(), a * b);
+    }
+
+    @Test
+    @DisplayName("Test of method calculate()")
+    void calculateWithNoArgsTest() throws Exception {
+        double a = 3, b = 5;
+        Formula lhs = new DoubleFormula(a);
+        Formula rhs = new DoubleFormula(b);
+        multiplication = new Multiplication(lhs, rhs);
+        Formula result = multiplication.calculate();
         assertEquals(result.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((DoubleFormula) result).getValue(), a * b);
     }
