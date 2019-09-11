@@ -39,17 +39,23 @@ public abstract class ComparisonFormula extends DyadicFormula {
 
     protected double compare() throws FormulaException {
         Formula left = lhs.calculate();
-        if (left == null) {
-            throw new FormulaException(ExceptionUtils.MISSING_LEFT_HAND_SIDE);
-        }
+        assertNumberFormula(left, "lhs");
         Formula right = rhs.calculate();
-        if (right == null) {
-            throw new FormulaException(ExceptionUtils.MISSING_RIGHT_HAND_SIDE);
-        }
+        assertNumberFormula(right, "rhs");
 
         if (left instanceof NumberFormula && right instanceof NumberFormula) {
             return ((NumberFormula) left).getValue() - ((NumberFormula) right).getValue();
         }
         return 0;
+    }
+
+    private void assertNumberFormula(Formula formula, String message) throws FormulaException {
+        if (formula == null) {
+            throw new FormulaException(ExceptionUtils.NULL_FORMULA, message);
+        }
+
+        if (!(formula instanceof NumberFormula)) {
+            throw new FormulaException(ExceptionUtils.UNEXPECTED_FORMULA_FOUND, "Should be NumberFormula");
+        }
     }
 }
