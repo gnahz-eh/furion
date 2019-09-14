@@ -34,34 +34,34 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EqualTest {
+class LessThanOrEqualToTest {
 
-    private Equal equal;
+    private LessThanOrEqualTo lessThanOrEqualTo;
 
     @BeforeEach
     void init() {
-        equal = new Equal(null, null);
+        lessThanOrEqualTo = new LessThanOrEqualTo(null, null);
     }
 
     @Test
     @DisplayName("Test of method calculate()")
     void calculate() throws FormulaException {
-        double a = 6, b = 6, c = 7;
+        double a = 7, b = 7, c = 6;
         Formula lhs = new IntegerFormula((int) a);
         Formula rhs = new IntegerFormula((int) b);
         Formula rhs2 = new IntegerFormula((int) c);
-        equal.setLhs(lhs);
-        equal.setRhs(rhs);
+        lessThanOrEqualTo.setLhs(lhs);
+        lessThanOrEqualTo.setRhs(rhs);
         Formula result = null;
 
-        assertEquals(equal.getFormulaType(), FormulaType.EQUAL);
-        result = equal.calculate();
+        assertEquals(lessThanOrEqualTo.getFormulaType(), FormulaType.LESS_THAN_OR_EQUAL_TO);
+        result = lessThanOrEqualTo.calculate();
         assertEquals(result.getFormulaType(), FormulaType.BOOLEAN);
-        assertEquals(((BooleanFormula) result).getValue(), BooleanFormula.getInstance(a == b).getValue());
+        assertEquals(((BooleanFormula) result).getValue(), BooleanFormula.getInstance(a <= b).getValue());
 
-        equal.setRhs(rhs2);
-        result = equal.calculate();
+        lessThanOrEqualTo.setRhs(rhs2);
+        result = lessThanOrEqualTo.calculate();
         assertEquals(result.getFormulaType(), FormulaType.BOOLEAN);
-        assertEquals(((BooleanFormula) result).getValue(), BooleanFormula.getInstance(a == c).getValue());
+        assertEquals(((BooleanFormula) result).getValue(), BooleanFormula.getInstance(a <= c).getValue());
     }
 }

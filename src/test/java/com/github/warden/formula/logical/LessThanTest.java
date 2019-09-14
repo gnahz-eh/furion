@@ -25,7 +25,6 @@
 package com.github.warden.formula.logical;
 
 import com.github.warden.enums.FormulaType;
-import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.number.IntegerFormula;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,34 +33,28 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EqualTest {
+class LessThanTest {
 
-    private Equal equal;
+    private LessThan lessThan;
 
     @BeforeEach
     void init() {
-        equal = new Equal(null, null);
+        lessThan = new LessThan(null, null);
     }
 
     @Test
     @DisplayName("Test of method calculate()")
-    void calculate() throws FormulaException {
-        double a = 6, b = 6, c = 7;
+    void calculate() throws Exception {
+        double a = 7, b = 8;
         Formula lhs = new IntegerFormula((int) a);
         Formula rhs = new IntegerFormula((int) b);
-        Formula rhs2 = new IntegerFormula((int) c);
-        equal.setLhs(lhs);
-        equal.setRhs(rhs);
+        lessThan.setLhs(lhs);
+        lessThan.setRhs(rhs);
         Formula result = null;
 
-        assertEquals(equal.getFormulaType(), FormulaType.EQUAL);
-        result = equal.calculate();
+        assertEquals(lessThan.getFormulaType(), FormulaType.LESS_THAN);
+        result = lessThan.calculate();
         assertEquals(result.getFormulaType(), FormulaType.BOOLEAN);
-        assertEquals(((BooleanFormula) result).getValue(), BooleanFormula.getInstance(a == b).getValue());
-
-        equal.setRhs(rhs2);
-        result = equal.calculate();
-        assertEquals(result.getFormulaType(), FormulaType.BOOLEAN);
-        assertEquals(((BooleanFormula) result).getValue(), BooleanFormula.getInstance(a == c).getValue());
+        assertEquals(((BooleanFormula) result).getValue(), BooleanFormula.getInstance(a < b).getValue());
     }
 }
