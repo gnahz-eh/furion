@@ -144,6 +144,7 @@ public class Parser {
                 break;
             case STRING:
                 realValue = new StringFormula(token.getValue());
+                break;
             case VARIABLE:
                 realValue = new VariableFormula(token.getValue());
                 break;
