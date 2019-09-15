@@ -25,28 +25,32 @@
 package com.github.warden.formula.function;
 
 import com.github.warden.enums.FormulaType;
+import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
-import com.github.warden.formula.function.mathematics.Abs;
-import com.github.warden.formula.number.NumberFormula;
-import com.github.warden.processor.Parser;
-import org.junit.Assert;
-import org.junit.Test;
+import com.github.warden.formula.number.IntegerFormula;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-public class FunctionTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class VariableFormulaTest {
+
+    private VariableFormula variableFormula;
+
+    @BeforeEach
+    void init() {
+        variableFormula = new VariableFormula("x");
+    }
 
     @Test
-    public void absTest() {
-        double arg = -12;
-        String line = "test(" + arg + ")";
-        try {
-            Formula formula = Parser.parse(line);
-            Assert.assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-            ((FunctionFormula) formula).setImplementation(new Abs());
-            formula = formula.calculate();
-            Assert.assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
-            Assert.assertEquals(((NumberFormula) formula).getValue(), Math.abs(arg), 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @DisplayName("Test of method calculate()")
+    void calculate() throws FormulaException {
+        int x = 5;
+        Formula actualValue = new IntegerFormula(x);
+        variableFormula.setActualValue(actualValue);
+        Formula result = variableFormula.calculate();
+        assertEquals(result.getFormulaType(), FormulaType.NUMBER_INTEGER);
+        assertEquals(((IntegerFormula) result).getValue(), x);
     }
 }

@@ -33,6 +33,7 @@ import com.github.warden.formula.DyadicFormula;
 import com.github.warden.formula.Formula;
 import com.github.warden.formula.arithmetic.*;
 import com.github.warden.formula.function.FunctionFormula;
+import com.github.warden.formula.function.VariableFormula;
 import com.github.warden.formula.logical.*;
 import com.github.warden.formula.number.DoubleFormula;
 import com.github.warden.formula.number.IntegerFormula;
@@ -76,6 +77,7 @@ public class Parser {
             case DOUBLE:
             case INTEGER:
             case STRING:
+            case VARIABLE:
                 parseValue(token);
                 break;
             case OPEN_BRACKET:
@@ -142,6 +144,8 @@ public class Parser {
                 break;
             case STRING:
                 realValue = new StringFormula(token.getValue());
+            case VARIABLE:
+                realValue = new VariableFormula(token.getValue());
                 break;
         }
         processValue(realValue);

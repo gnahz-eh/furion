@@ -97,7 +97,7 @@ public class Tokenizer {
         if (!Character.isJavaIdentifierStart(lastCharacter)) {
             throw new IOException("INVALID TOKEN: " + (char) lastCharacter);
         }
-        return tokenizeFunction();
+        return tokenizeFunctionOrVariable();
     }
 
 
@@ -191,7 +191,7 @@ public class Tokenizer {
         return sb.toString();
     }
 
-    private Token tokenizeFunction() throws IOException {
+    private Token tokenizeFunctionOrVariable() throws IOException {
         StringBuilder sb = new StringBuilder();
 
         while (Character.isJavaIdentifierPart(lastCharacter)) {
@@ -206,7 +206,8 @@ public class Tokenizer {
         if (lastCharacter == '(') {
             lastCharacter = 0;
             return new Token(TokenType.FUNCTION, sb.toString());
+        } else {
+            return new Token(TokenType.VARIABLE, sb.toString());
         }
-        return null;
     }
 }

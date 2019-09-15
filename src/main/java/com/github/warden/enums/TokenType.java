@@ -42,5 +42,6 @@ public enum TokenType {
     LESS_THAN_OR_EQUAL_TO,
     STRING,
     FUNCTION,
-    COMMA
+    COMMA,
+    VARIABLE
 }

@@ -29,57 +29,57 @@ import com.github.warden.exception.ExceptionUtils;
 import com.github.warden.exception.FormulaException;
 import com.github.warden.formula.Formula;
 
-public class FunctionFormula extends Formula {
+public class VariableFormula extends Formula {
 
-    private String functionName;
-    private Formula[] args;
-    private Function implementation;
+    private String variableName;
+    private Formula actualValue;
 
-    public FunctionFormula(String functionName, Formula[] args) {
-        super(FormulaType.FUNCTION, true);
-        this.functionName = functionName;
-        this.args = args;
+    public VariableFormula(String variableName) {
+        super(FormulaType.VARIABLE, true);
+        this.variableName = variableName;
     }
 
     @Override
     public Formula calculate() throws FormulaException {
-        if (implementation == null) {
-            throw new FormulaException(ExceptionUtils.IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL);
+        if (actualValue == null) {
+            return this;
+        } else {
+            if (!actualValue.isCalculable()) {
+                return actualValue;
+            }
+            return actualValue.calculate();
         }
-        return implementation.calculate(args);
     }
 
     @Override
     public void verify() throws FormulaException {
-        if (functionName == null) {
-            throw new FormulaException(ExceptionUtils.NAME_OF_FUNCTION_FORMULA_IS_NULL);
+        if (variableName == null) {
+            throw new FormulaException(ExceptionUtils.NAME_OF_VARIABLE_IS_NULL);
         }
-        for (Formula formula : args) {
-            formula.verify();
+        if (actualValue != null) {
+            actualValue.verify();
         }
     }
 
-    public Function getImplementation() {
-        return implementation;
+    private void assertFormulaCalculable(Formula formula, String message) throws FormulaException {
+        if (!formula.isCalculable()) {
+            throw new FormulaException(ExceptionUtils.FORMULA_IS_NOT_CALCULABLE, message);
+        }
     }
 
-    public void setImplementation(Function implementation) {
-        this.implementation = implementation;
+    public String getVariableName() {
+        return variableName;
     }
 
-    public String getFunctionName() {
-        return functionName;
+    public void setVariableName(String variableName) {
+        this.variableName = variableName;
     }
 
-    public void setFunctionName(String functionName) {
-        this.functionName = functionName;
+    public Formula getActualValue() {
+        return actualValue;
     }
 
-    public Formula[] getArgs() {
-        return args;
-    }
-
-    public void setArgs(Formula[] args) {
-        this.args = args;
+    public void setActualValue(Formula actualValue) {
+        this.actualValue = actualValue;
     }
 }
