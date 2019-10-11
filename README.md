@@ -15,18 +15,6 @@
 
 ### 🏠 [Homepage](https://github.com/gnahZ-eH/Furion)
 
-## Install
-
-```sh
-npm install
-```
-
-## Run tests
-
-```sh
-npm run test
-```
-
 ## Author
 
 👤 **He Zhang(Joe)**
