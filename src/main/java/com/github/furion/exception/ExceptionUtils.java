@@ -47,6 +47,7 @@ public class ExceptionUtils {
     public static final int NULL_FORMULA = 16;
     public static final int FORMULA_IS_NOT_CALCULABLE = 17;
     public static final int NAME_OF_VARIABLE_IS_NULL = 18;
+    public static final int LESS_ARGS_IN_FUNCTION = 19;
 
 
     public static final Map<Integer, String> exceptionMap = new HashMap<Integer, String>();
@@ -70,5 +71,6 @@ public class ExceptionUtils {
         exceptionMap.put(NULL_FORMULA, "Null Formula");
         exceptionMap.put(FORMULA_IS_NOT_CALCULABLE, "Formula is not calculable");
         exceptionMap.put(NAME_OF_VARIABLE_IS_NULL, "Name of variable formula is null");
+        exceptionMap.put(LESS_ARGS_IN_FUNCTION, "Less args in function");
     }
 }

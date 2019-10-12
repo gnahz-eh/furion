@@ -29,6 +29,8 @@ import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
 import com.github.furion.formula.arithmetic.Addition;
 import com.github.furion.formula.function.mathematics.Abs;
+import com.github.furion.formula.function.mathematics.Ave;
+import com.github.furion.formula.function.mathematics.Sum;
 import com.github.furion.formula.number.DoubleFormula;
 import com.github.furion.formula.number.IntegerFormula;
 import com.github.furion.formula.number.NumberFormula;
@@ -88,5 +90,39 @@ public class FunctionFormulaTest {
         args[2] = args[2].calculate();
         assertEquals(args[2].getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((DoubleFormula) args[2]).getValue(), 9);
+    }
+
+    @Test
+    @DisplayName("Test of Sum Function calculate()")
+    public void sumTest() throws FormulaException, IOException {
+        double arg1 = 1;
+        double arg2 = 4;
+        double arg3 = 5;
+
+        String line = "test(" + arg1 + ", " + arg2 + ", " + arg3 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Sum());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), arg1 + arg2 + arg3);
+    }
+
+    @Test
+    @DisplayName("Test of Ave Function calculate()")
+    public void aveTest() throws FormulaException, IOException {
+        double arg1 = 1;
+        double arg2 = 4;
+        double arg3 = 5;
+
+        String line = "test(" + arg1 + ", " + arg2 + ", " + arg3 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Ave());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), (arg1 + arg2 + arg3) / 3);
     }
 }

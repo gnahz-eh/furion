@@ -29,6 +29,9 @@ import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
 import com.github.furion.formula.number.NumberFormula;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractFunction implements Function {
 
     protected void assertArgCount(Formula[] args, int count) throws FormulaException {
@@ -49,5 +52,23 @@ public abstract class AbstractFunction implements Function {
             return ((NumberFormula) arg).getValue();
         }
         throw new FormulaException(ExceptionUtils.INVALID_ARG_TYPE_FOR_FUNCTION, getClass().getSimpleName());
+    }
+
+    protected void assertMinArgCount(Formula[] args, int count) throws FormulaException {
+        if (args == null && count != 0) {
+            throw new FormulaException(ExceptionUtils.NO_ARGS_IN_FUNCTION, getClass().getSimpleName());
+        }
+
+        if (args.length < count) {
+            throw new FormulaException();
+        }
+    }
+
+    protected List<Double> toDoubles(Formula[] args) throws FormulaException {
+        List<Double> argList = new ArrayList<>(args.length);
+        for (Formula arg : args) {
+            argList.add(toDouble(arg));
+        }
+        return argList;
     }
 }
