@@ -28,9 +28,7 @@ import com.github.furion.enums.FormulaType;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
 import com.github.furion.formula.arithmetic.Addition;
-import com.github.furion.formula.function.mathematics.Abs;
-import com.github.furion.formula.function.mathematics.Ave;
-import com.github.furion.formula.function.mathematics.Sum;
+import com.github.furion.formula.function.mathematics.*;
 import com.github.furion.formula.number.DoubleFormula;
 import com.github.furion.formula.number.IntegerFormula;
 import com.github.furion.formula.number.NumberFormula;
@@ -124,5 +122,67 @@ public class FunctionFormulaTest {
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), (arg1 + arg2 + arg3) / 3);
+    }
+
+    @Test
+    @DisplayName("Test of Comb Function calculate()")
+    public void combTest() throws FormulaException, IOException {
+        double arg1 = 6;
+        double arg2 = 2;
+
+        String line = "test(" + arg1 + ", " + arg2 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Comb());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), (6 * 5 * 4 * 3 * 2 * 1) / (2 * 1 * 4 * 3 * 2 * 1));
+    }
+
+    @Test
+    @DisplayName("Test of Fact Function calculate()")
+    public void factTest() throws FormulaException, IOException {
+        double arg1 = 6;
+        String line = "test(" + arg1 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Fact());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), 6 * 5 * 4 * 3 * 2 * 1);
+    }
+
+    @Test
+    @DisplayName("Test of Prod Function calculate()")
+    public void prodTest() throws FormulaException, IOException {
+        double arg1 = 1;
+        double arg2 = 4;
+        double arg3 = 5;
+        String line = "test(" + arg1 + ", " + arg2 + ", " + arg3 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Prod());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), arg1 * arg2 * arg3);
+    }
+
+    @Test
+    @DisplayName("Test of Geom Function calculate()")
+    public void geomTest() throws FormulaException, IOException {
+        double arg1 = 1;
+        double arg2 = 4;
+        double arg3 = 5;
+        String line = "test(" + arg1 + ", " + arg2 + ", " + arg3 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Geom());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), Math.pow(arg1 * arg2 * arg3, 1. / 3));
     }
 }
