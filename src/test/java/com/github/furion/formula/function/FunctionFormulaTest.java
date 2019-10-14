@@ -185,4 +185,36 @@ public class FunctionFormulaTest {
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), Math.pow(arg1 * arg2 * arg3, 1. / 3));
     }
+
+    @Test
+    @DisplayName("Test of Max Function calculate()")
+    public void maxTest() throws FormulaException, IOException {
+        double arg1 = 1;
+        double arg2 = 4;
+        double arg3 = 5;
+        String line = "test(" + arg1 + ", " + arg2 + ", " + arg3 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Max());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), Math.max(arg1, Math.max(arg2, arg3)));
+    }
+
+    @Test
+    @DisplayName("Test of Min Function calculate()")
+    public void minTest() throws FormulaException, IOException {
+        double arg1 = 1;
+        double arg2 = 4;
+        double arg3 = 5;
+        String line = "test(" + arg1 + ", " + arg2 + ", " + arg3 + ")";
+
+        Formula formula = Parser.parse(line);
+        assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
+        ((FunctionFormula) formula).setImplementation(new Min());
+        formula = formula.calculate();
+        assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
+        assertEquals(((NumberFormula) formula).getValue(), Math.min(arg1, Math.min(arg2, arg3)));
+    }
 }
