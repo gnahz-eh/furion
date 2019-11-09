@@ -25,8 +25,8 @@
 package com.github.furion.formula;
 
 import com.github.furion.enums.FormulaType;
-import com.github.furion.exception.ExceptionUtils;
 import com.github.furion.exception.FormulaException;
+import com.github.furion.utils.ExceptionUtils;
 
 public abstract class DyadicFormula extends Formula {
 

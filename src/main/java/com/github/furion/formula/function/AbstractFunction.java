@@ -24,10 +24,10 @@
 
 package com.github.furion.formula.function;
 
-import com.github.furion.exception.ExceptionUtils;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
 import com.github.furion.formula.number.NumberFormula;
+import com.github.furion.utils.ExceptionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public abstract class AbstractFunction implements Function {
         }
 
         if (args.length < count) {
-            throw new FormulaException();
+            throw new FormulaException(ExceptionUtils.LESS_ARGS_IN_FUNCTION, getClass().getSimpleName());
         }
     }
 

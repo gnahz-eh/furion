@@ -26,7 +26,6 @@ package com.github.furion.processor;
 
 
 import com.github.furion.enums.TokenType;
-import com.github.furion.exception.ExceptionUtils;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.BracketFormula;
 import com.github.furion.formula.DyadicFormula;
@@ -38,6 +37,7 @@ import com.github.furion.formula.logical.*;
 import com.github.furion.formula.number.DoubleFormula;
 import com.github.furion.formula.number.IntegerFormula;
 import com.github.furion.formula.string.StringFormula;
+import com.github.furion.utils.ExceptionUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;

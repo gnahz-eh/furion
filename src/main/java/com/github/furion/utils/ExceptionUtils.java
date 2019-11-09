@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.furion.exception;
+package com.github.furion.utils;
 
 import java.util.HashMap;
 import java.util.Map;

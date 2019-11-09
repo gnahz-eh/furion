@@ -25,10 +25,10 @@
 package com.github.furion.formula.arithmetic;
 
 import com.github.furion.enums.FormulaType;
-import com.github.furion.exception.ExceptionUtils;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
 import com.github.furion.formula.number.DoubleFormula;
+import com.github.furion.utils.ExceptionUtils;
 
 public class Division extends ArithmeticFormula {
 

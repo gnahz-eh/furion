@@ -24,6 +24,8 @@
 
 package com.github.furion.exception;
 
+import com.github.furion.utils.ExceptionUtils;
+
 public class FormulaException extends Exception {
     public FormulaException() { super(); }
     public FormulaException(String exceptionMessage, Throwable cause) {
