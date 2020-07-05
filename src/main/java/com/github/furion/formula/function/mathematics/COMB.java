@@ -25,11 +25,33 @@
 package com.github.furion.formula.function.mathematics;
 
 import com.github.furion.exception.FormulaException;
+import com.github.furion.formula.Formula;
 
-public class Rad extends SISOFunction {
+import java.math.BigInteger;
+import java.util.List;
+
+public class COMB extends MISOFunction {
 
     @Override
-    public double calculate(double arg) throws FormulaException {
-        return arg * Math.PI / 180;
+    public Formula calculate(Formula[] args) throws FormulaException {
+        assertArgCount(args, 2);
+        return super.calculate(args);
+    }
+
+    @Override
+    public double calculate(List<Double> args) {
+        int N = args.get(0).intValue();
+        int K = args.get(1).intValue();
+        return factorial(N)
+                .divide(factorial(K).multiply(factorial(N - K)))
+                .doubleValue();
+    }
+
+    private BigInteger factorial(int value) {
+        BigInteger n = BigInteger.ONE;
+        for (int i = 2; i <= value; i++) {
+            n = n.multiply(BigInteger.valueOf(i));
+        }
+        return n;
     }
 }

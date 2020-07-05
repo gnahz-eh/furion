@@ -24,12 +24,12 @@
 
 package com.github.furion.formula.function.mathematics;
 
-import java.util.List;
+import com.github.furion.exception.FormulaException;
 
-public class Sum extends MISOFunction {
+public class DEG extends SISOFunction {
 
     @Override
-    public double calculate(List<Double> args) {
-        return args.stream().reduce(Double::sum).orElse(0.0);
+    public double calculate(double arg) throws FormulaException {
+        return arg * 180 / Math.PI;
     }
 }

@@ -26,10 +26,20 @@ package com.github.furion.formula.function.mathematics;
 
 import com.github.furion.exception.FormulaException;
 
-public class Sqrt extends SISOFunction {
+import java.math.BigInteger;
+
+public class FACT extends SISOFunction {
 
     @Override
     public double calculate(double arg) throws FormulaException {
-        return Math.sqrt(arg);
+        return factorial((int) arg).doubleValue();
+    }
+
+    private BigInteger factorial(int value) {
+        BigInteger n = BigInteger.ONE;
+        for (int i = 2; i <= value; i++) {
+            n = n.multiply(BigInteger.valueOf(i));
+        }
+        return n;
     }
 }

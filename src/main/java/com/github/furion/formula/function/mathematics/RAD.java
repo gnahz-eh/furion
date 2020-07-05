@@ -24,16 +24,12 @@
 
 package com.github.furion.formula.function.mathematics;
 
-import java.util.List;
+import com.github.furion.exception.FormulaException;
 
-public class Min extends MISOFunction {
+public class RAD extends SISOFunction {
 
     @Override
-    public double calculate(List<Double> args) {
-        double res = Double.MAX_VALUE;
-        for (double d : args) {
-            res = d < res ? d : res;
-        }
-        return res;
+    public double calculate(double arg) throws FormulaException {
+        return arg * Math.PI / 180;
     }
 }

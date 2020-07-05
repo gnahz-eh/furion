@@ -24,12 +24,12 @@
 
 package com.github.furion.formula.function.mathematics;
 
-import com.github.furion.exception.FormulaException;
+import java.util.List;
 
-public class Abs extends SISOFunction {
+public class SUM extends MISOFunction {
 
     @Override
-    public double calculate(double arg) throws FormulaException {
-        return Math.abs(arg);
+    public double calculate(List<Double> args) {
+        return args.stream().reduce(Double::sum).orElse(0.0);
     }
 }

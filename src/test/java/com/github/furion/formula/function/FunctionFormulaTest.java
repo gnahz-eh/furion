@@ -61,7 +61,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Abs());
+        ((FunctionFormula) formula).setImplementation(new ABS());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), Math.abs(arg));
@@ -101,7 +101,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Sum());
+        ((FunctionFormula) formula).setImplementation(new SUM());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), arg1 + arg2 + arg3);
@@ -118,7 +118,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Ave());
+        ((FunctionFormula) formula).setImplementation(new AVE());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), (arg1 + arg2 + arg3) / 3);
@@ -134,7 +134,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Comb());
+        ((FunctionFormula) formula).setImplementation(new COMB());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), (6 * 5 * 4 * 3 * 2 * 1) / (2 * 1 * 4 * 3 * 2 * 1));
@@ -148,7 +148,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Fact());
+        ((FunctionFormula) formula).setImplementation(new FACT());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), 6 * 5 * 4 * 3 * 2 * 1);
@@ -164,7 +164,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Prod());
+        ((FunctionFormula) formula).setImplementation(new PROD());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), arg1 * arg2 * arg3);
@@ -180,7 +180,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Geom());
+        ((FunctionFormula) formula).setImplementation(new GEOM());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), Math.pow(arg1 * arg2 * arg3, 1. / 3));
@@ -196,7 +196,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Max());
+        ((FunctionFormula) formula).setImplementation(new MAX());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), Math.max(arg1, Math.max(arg2, arg3)));
@@ -212,7 +212,7 @@ public class FunctionFormulaTest {
 
         Formula formula = Parser.parse(line);
         assertEquals(formula.getFormulaType(), FormulaType.FUNCTION);
-        ((FunctionFormula) formula).setImplementation(new Min());
+        ((FunctionFormula) formula).setImplementation(new MIN());
         formula = formula.calculate();
         assertEquals(formula.getFormulaType(), FormulaType.NUMBER_DOUBLE);
         assertEquals(((NumberFormula) formula).getValue(), Math.min(arg1, Math.min(arg2, arg3)));

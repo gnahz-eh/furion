@@ -26,16 +26,10 @@ package com.github.furion.formula.function.mathematics;
 
 import com.github.furion.exception.FormulaException;
 
-public class Odd extends SISOFunction {
+public class TAN extends SISOFunction {
 
     @Override
     public double calculate(double arg) throws FormulaException {
-        double result = (arg + 1) % 2;
-        if (result < 0) {
-            return arg - 2 - result;
-        } else if (result > 0) {
-            return arg + 2 - result;
-        }
-        return arg;
+        return Math.tan(arg);
     }
 }

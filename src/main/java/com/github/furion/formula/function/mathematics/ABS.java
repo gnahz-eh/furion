@@ -24,13 +24,12 @@
 
 package com.github.furion.formula.function.mathematics;
 
-import java.util.List;
+import com.github.furion.exception.FormulaException;
 
-public class Geom extends MISOFunction {
+public class ABS extends SISOFunction {
 
     @Override
-    public double calculate(List<Double> args) {
-        double prod = Prod.prod(args);
-        return Math.pow(prod, 1. / args.size());
+    public double calculate(double arg) throws FormulaException {
+        return Math.abs(arg);
     }
 }

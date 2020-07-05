@@ -26,18 +26,11 @@ package com.github.furion.formula.function.mathematics;
 
 import java.util.List;
 
-public class Prod extends MISOFunction {
+public class GEOM extends MISOFunction {
 
     @Override
     public double calculate(List<Double> args) {
-        return prod(args);
-    }
-
-    public static double prod(List<Double> args) {
-        double result = 1;
-        for (double arg : args) {
-            result *= arg;
-        }
-        return result;
+        double prod = PROD.prod(args);
+        return Math.pow(prod, 1. / args.size());
     }
 }

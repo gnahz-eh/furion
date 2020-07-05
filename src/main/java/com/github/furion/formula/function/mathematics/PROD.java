@@ -24,12 +24,20 @@
 
 package com.github.furion.formula.function.mathematics;
 
-import com.github.furion.exception.FormulaException;
+import java.util.List;
 
-public class Sign extends SISOFunction {
+public class PROD extends MISOFunction {
 
     @Override
-    public double calculate(double arg) throws FormulaException {
-        return arg < 0 ? -1 : (arg == 0 ? 0 : 1);
+    public double calculate(List<Double> args) {
+        return prod(args);
+    }
+
+    public static double prod(List<Double> args) {
+        double result = 1;
+        for (double arg : args) {
+            result *= arg;
+        }
+        return result;
     }
 }

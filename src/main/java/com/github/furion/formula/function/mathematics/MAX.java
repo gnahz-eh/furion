@@ -26,7 +26,7 @@ package com.github.furion.formula.function.mathematics;
 
 import java.util.List;
 
-public class Max extends MISOFunction {
+public class MAX extends MISOFunction {
 
     @Override
     public double calculate(List<Double> args) {

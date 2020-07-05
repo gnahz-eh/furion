@@ -26,10 +26,10 @@ package com.github.furion.formula.function.mathematics;
 
 import com.github.furion.exception.FormulaException;
 
-public class Ceil extends SISOFunction {
+public class SIGN extends SISOFunction {
 
     @Override
     public double calculate(double arg) throws FormulaException {
-        return Math.ceil(arg);
+        return arg < 0 ? -1 : (arg == 0 ? 0 : 1);
     }
 }

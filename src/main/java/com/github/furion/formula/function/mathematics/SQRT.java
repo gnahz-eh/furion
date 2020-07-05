@@ -26,10 +26,10 @@ package com.github.furion.formula.function.mathematics;
 
 import com.github.furion.exception.FormulaException;
 
-public class Ln extends SISOFunction {
+public class SQRT extends SISOFunction {
 
     @Override
     public double calculate(double arg) throws FormulaException {
-        return Math.log(arg);
+        return Math.sqrt(arg);
     }
 }

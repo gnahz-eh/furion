@@ -26,10 +26,10 @@ package com.github.furion.formula.function.mathematics;
 
 import com.github.furion.exception.FormulaException;
 
-public class Acos extends SISOFunction {
+public class COS extends SISOFunction {
 
     @Override
     public double calculate(double arg) throws FormulaException {
-        return Math.acos(arg);
+        return Math.cos(arg);
     }
 }

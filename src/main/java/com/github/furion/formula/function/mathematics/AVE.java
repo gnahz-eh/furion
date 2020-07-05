@@ -24,22 +24,12 @@
 
 package com.github.furion.formula.function.mathematics;
 
-import com.github.furion.exception.FormulaException;
+import java.util.List;
 
-import java.math.BigInteger;
-
-public class Fact extends SISOFunction {
+public class AVE extends MISOFunction {
 
     @Override
-    public double calculate(double arg) throws FormulaException {
-        return factorial((int) arg).doubleValue();
-    }
-
-    private BigInteger factorial(int value) {
-        BigInteger n = BigInteger.ONE;
-        for (int i = 2; i <= value; i++) {
-            n = n.multiply(BigInteger.valueOf(i));
-        }
-        return n;
+    public double calculate(List<Double> args) {
+        return args.stream().reduce(Double::sum).orElse(0.0) / args.size();
     }
 }

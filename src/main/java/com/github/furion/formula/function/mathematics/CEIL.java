@@ -24,12 +24,12 @@
 
 package com.github.furion.formula.function.mathematics;
 
-import java.util.List;
+import com.github.furion.exception.FormulaException;
 
-public class Ave extends MISOFunction {
+public class CEIL extends SISOFunction {
 
     @Override
-    public double calculate(List<Double> args) {
-        return args.stream().reduce(Double::sum).orElse(0.0) / args.size();
+    public double calculate(double arg) throws FormulaException {
+        return Math.ceil(arg);
     }
 }
