@@ -28,6 +28,10 @@ import com.github.furion.enums.FormulaType;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
 import com.github.furion.utils.ExceptionUtils;
+import com.github.furion.utils.FunctionUtils;
+import com.github.furion.utils.StringUtils;
+
+import java.util.Map;
 
 public class FunctionFormula extends Formula {
 
@@ -37,12 +41,13 @@ public class FunctionFormula extends Formula {
 
     public FunctionFormula(String functionName, Formula[] args) {
         super(FormulaType.FUNCTION, true);
-        this.functionName = functionName;
+        this.functionName = functionName.toUpperCase();
         this.args = args;
     }
 
     @Override
     public Formula calculate() throws FormulaException {
+        initImplementation();
         if (implementation == null) {
             throw new FormulaException(ExceptionUtils.IMPLEMENTATION_OF_FUNCTION_FORMULA_IS_NULL);
         }
@@ -56,6 +61,22 @@ public class FunctionFormula extends Formula {
         }
         for (Formula formula : args) {
             formula.verify();
+        }
+    }
+
+    private void initImplementation() throws FormulaException {
+        Map<String, Function> functionCache = FunctionUtils.functionCache;
+        if (functionCache.containsKey(functionName)) {
+            setImplementation(functionCache.get(functionName));
+        } else {
+            try {
+                Class<?> clazz = Class.forName(StringUtils.FUNCTION_PACKAGE + functionName);
+                Function instance = (Function) clazz.newInstance();
+                setImplementation(instance);
+                functionCache.put(functionName, instance);
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                throw new FormulaException(e);
+            }
         }
     }
 
