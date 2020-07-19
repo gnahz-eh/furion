@@ -28,6 +28,9 @@ import com.github.furion.enums.FormulaType;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
 import com.github.furion.utils.ExceptionUtils;
+import com.github.furion.utils.FunctionUtils;
+
+import java.util.Map;
 
 public class VariableFormula extends Formula {
 
@@ -42,13 +45,12 @@ public class VariableFormula extends Formula {
     @Override
     public Formula calculate() throws FormulaException {
         if (actualValue == null) {
-            return this;
-        } else {
-            if (!actualValue.isCalculable()) {
-                return actualValue;
-            }
-            return actualValue.calculate();
+            initActualValue();
         }
+        if (!actualValue.isCalculable()) {
+            return actualValue;
+        }
+        return actualValue.calculate();
     }
 
     @Override
@@ -58,6 +60,16 @@ public class VariableFormula extends Formula {
         }
         if (actualValue != null) {
             actualValue.verify();
+        }
+    }
+
+    private void initActualValue() throws FormulaException {
+        Map<String, Formula> selfDefineVariableCache = FunctionUtils.selfDefinedVariableCache;
+
+        if (selfDefineVariableCache.containsKey(variableName)) {
+            setActualValue(selfDefineVariableCache.get(variableName));
+        } else {
+            throw new FormulaException(ExceptionUtils.UNDEFINED_VARIABLE, variableName);
         }
     }
 

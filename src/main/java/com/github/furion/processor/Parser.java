@@ -38,10 +38,12 @@ import com.github.furion.formula.number.DoubleFormula;
 import com.github.furion.formula.number.IntegerFormula;
 import com.github.furion.formula.string.StringFormula;
 import com.github.furion.utils.ExceptionUtils;
+import com.github.furion.utils.FunctionUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Parser {
     private Formula current;
@@ -50,6 +52,14 @@ public class Parser {
         Parser parser = new Parser();
         parser.parse(new Tokenizer(s));
         return parser.getCurrent();
+    }
+
+    public static Formula parseWithVariable(String s, Map<String, String> variables) throws FormulaException, IOException {
+        Map<String, Formula> selfDefineVariableCache = FunctionUtils.selfDefinedVariableCache;
+        for (String variable : variables.keySet()) {
+            selfDefineVariableCache.put(variable, new DoubleFormula(Double.parseDouble(variables.get(variable))));
+        }
+        return parse(s);
     }
 
     public void parse(Tokenizer tokenizer) throws FormulaException, IOException {

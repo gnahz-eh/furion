@@ -24,6 +24,7 @@
 
 package com.github.furion.utils;
 
+import com.github.furion.formula.Formula;
 import com.github.furion.formula.function.Function;
 
 import java.util.HashMap;
@@ -32,4 +33,6 @@ import java.util.Map;
 public class FunctionUtils {
 
     public static Map<String, Function> functionCache = new HashMap<>();
+
+    public static Map<String, Formula> selfDefinedVariableCache = new HashMap<>();
 }
