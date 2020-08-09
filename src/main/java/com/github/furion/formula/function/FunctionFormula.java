@@ -27,11 +27,10 @@ package com.github.furion.formula.function;
 import com.github.furion.enums.FormulaType;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
+import com.github.furion.utils.Cache;
 import com.github.furion.utils.ExceptionUtils;
 import com.github.furion.utils.FunctionUtils;
 import com.github.furion.utils.StringUtils;
-
-import java.util.Map;
 
 public class FunctionFormula extends Formula {
 
@@ -65,7 +64,7 @@ public class FunctionFormula extends Formula {
     }
 
     private void initImplementation() throws FormulaException {
-        Map<String, Function> functionCache = FunctionUtils.functionCache;
+        Cache<String, Function> functionCache = FunctionUtils.FUNCTION_CACHE;
         if (functionCache.containsKey(functionName)) {
             setImplementation(functionCache.get(functionName));
         } else {

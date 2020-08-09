@@ -27,10 +27,9 @@ package com.github.furion.formula.function;
 import com.github.furion.enums.FormulaType;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.Formula;
+import com.github.furion.utils.Cache;
 import com.github.furion.utils.ExceptionUtils;
 import com.github.furion.utils.FunctionUtils;
-
-import java.util.Map;
 
 public class VariableFormula extends Formula {
 
@@ -64,10 +63,10 @@ public class VariableFormula extends Formula {
     }
 
     private void initActualValue() throws FormulaException {
-        Map<String, Formula> selfDefineVariableCache = FunctionUtils.selfDefinedVariableCache;
+        Cache<String, Formula> variableCache = FunctionUtils.VARIABLE_CACHE;
 
-        if (selfDefineVariableCache.containsKey(variableName)) {
-            setActualValue(selfDefineVariableCache.get(variableName));
+        if (variableCache.containsKey(variableName)) {
+            setActualValue(variableCache.get(variableName));
         } else {
             throw new FormulaException(ExceptionUtils.UNDEFINED_VARIABLE, variableName);
         }

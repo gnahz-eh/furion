@@ -24,14 +24,19 @@
 
 package com.github.furion.utils;
 
-import com.github.furion.formula.Formula;
-import com.github.furion.formula.function.Function;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class FunctionUtils {
+public class Cache<K, V> extends LinkedHashMap<K, V> {
 
-    private static final int CACHE_SIZE = 16;
+    private final int cacheSize;
 
-    public static Cache<String, Function> FUNCTION_CACHE = new Cache<>(CACHE_SIZE);
+    public Cache(int cacheSize) {
+        this.cacheSize = cacheSize;
+    }
 
-    public static Cache<String, Formula> VARIABLE_CACHE = new Cache<>(CACHE_SIZE);
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        return size() > cacheSize;
+    }
 }

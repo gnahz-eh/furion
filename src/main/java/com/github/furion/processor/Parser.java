@@ -24,7 +24,6 @@
 
 package com.github.furion.processor;
 
-
 import com.github.furion.enums.TokenType;
 import com.github.furion.exception.FormulaException;
 import com.github.furion.formula.BracketFormula;
@@ -37,6 +36,7 @@ import com.github.furion.formula.logical.*;
 import com.github.furion.formula.number.DoubleFormula;
 import com.github.furion.formula.number.IntegerFormula;
 import com.github.furion.formula.string.StringFormula;
+import com.github.furion.utils.Cache;
 import com.github.furion.utils.ExceptionUtils;
 import com.github.furion.utils.FunctionUtils;
 
@@ -55,9 +55,9 @@ public class Parser {
     }
 
     public static Formula parseWithVariable(String s, Map<String, String> variables) throws FormulaException, IOException {
-        Map<String, Formula> selfDefineVariableCache = FunctionUtils.selfDefinedVariableCache;
+        Cache<String, Formula> variableCache = FunctionUtils.VARIABLE_CACHE;
         for (String variable : variables.keySet()) {
-            selfDefineVariableCache.put(variable, new DoubleFormula(Double.parseDouble(variables.get(variable))));
+            variableCache.put(variable, new DoubleFormula(Double.parseDouble(variables.get(variable))));
         }
         return parse(s);
     }
