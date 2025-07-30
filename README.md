@@ -17,7 +17,7 @@
 
 ## Author
 
-👤 **He Zhang(Joe)**
+👤 **He Zhang**
 
 * Github: [@gnahZ-eH](https://github.com/gnahZ-eH)
 
