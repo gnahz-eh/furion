@@ -19,7 +19,6 @@
 
 👤 **He Zhang(Joe)**
 
-* zhihu: [@https://www.zhihu.com/people/Jerry_Zhang](https://twitter.com/https://www.zhihu.com/people/Jerry_Zhang)
 * Github: [@gnahZ-eH](https://github.com/gnahZ-eH)
 
 ## 🤝 Contributing
